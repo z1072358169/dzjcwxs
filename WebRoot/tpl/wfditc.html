@@ -1,0 +1,29 @@
+<div class="modal fade" id="modal-container-781148" role="dialog"
+	 aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">违法地点详细信息</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-condensed table-bordered table-hover" style="text-align: center;">
+					<tr class="info">
+						<td style="width: 15%;">序号</td>
+						<td style="width: 60%;">违法地点名称</td>
+						<td style="width: 25%;">数量</td>
+					</tr>
+					<tr ng-repeat="x in wfdidian" ng-dblclick="illegalityPlace(x)">
+						<td>{{x.xuhao}}</td>
+						<td>{{x.CJDZ}}</td>
+						<td>{{x.addcount}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" id="guanbi">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

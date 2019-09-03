@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.RoadInfoMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findRoadInfo" parameterType="zygh.yfb.wxy.vo.RoadInfo" resultType="zygh.yfb.wxy.vo.RoadInfo">
+	    select * from roadinfo
+  	</select> 
+  	
+  	<select id="findsbbhbylukou" parameterType="string" resultType="string">
+	    SELECT SBBH FROM sblukou WHERE lukouname = #{lukouname}
+  	</select> 
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addRoadInfo" parameterType="zygh.yfb.wxy.vo.RoadInfo" >
+  		insert into roadinfo(id,name) 
+  		values(#{id},#{name})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deleteRoadInfo" parameterType="int">
+  		delete from roadinfo where id in
+  		<foreach item="ids" collection="array" open="(" separator="," close=")">
+  			#{ids}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateRoadInfo" parameterType="int">
+    	update roadinfo
+    	set
+      	name = #{name}
+      	where id = #{id} 
+	</update>
+	
+	<!-- <select id="selecthxRoadInfo" parameterType="string" resultType="zygh.yfb.wxy.vo.RoadInfo">
+		select * from RoadInfo where area = #{area}
+		<where>
+			<if test="licenseRoadInfo != null and licenseRoadInfo !='' ">
+			and licenseRoadInfo = #{licenseRoadInfo}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectparea" parameterType="string" resultType="zygh.yfb.wxy.vo.RoadInfo">
+		select * from RoadInfo where hxRoadInfo = #{hxRoadInfo}
+		<where>
+			<if test="pExplain != null and pExplain !='' ">
+			and pExplain = #{pExplain}
+			</if>
+		</where>
+	</select> -->
+	
+	
+</mapper>

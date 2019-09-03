@@ -1,0 +1,72 @@
+<section>
+	<div class="header">
+		<p>
+			<span>添加角色</span>
+			<!-- <button type="button" title="删除信息" id="todelet" class="btn btn-danger bar-h3-btn mr"><em class="fa fa-trash fa-fw mr-sm"></em>删除信息</button>
+			<button type="button" title="修改信息" id="toupdate" class="btn btn-primary bar-h3-btn mr"><em class="fa fa-pencil fa-fw mr-sm"></em>修改信息</button>
+			<button type="button" title="添加信息" id="toadd" class="btn btn-info bar-h3-btn mr"><em class="fa fa-plus fa-fw mr-sm"></em>添加信息</button></a> -->
+		</p>
+	</div>
+	<div class="main">
+		<form class="form-horizontal">
+			<br />
+			<div class="form-group">
+			<label class="col-lg-2 control-label">角色名称：</label>
+				<div class="col-lg-6">
+					<input type="text"  value="" class="form-control" required="" ng-model="roleName">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">权限: </label>
+				<div class="col-lg-4">
+					<select data-ng-init="load()" id="exampleqx" multiple="multiple">
+						<optgroup label='违法抓拍'>
+							<option value='"wfzpa":true'>违法抓拍</option>
+							<option value='"qbsj":true'>全部数据</option>
+							<option value='"wfcs":true'>违法初筛</option>
+							<option value='"wfcx":true'>违法查询</option>
+							<option value='"fpsx":true'>废片筛选</option>
+							<option value='"fpsxcx":true'>废片筛选查询</option>
+							<option value='"fpsxtj":true'>废片筛选统计</option>
+							<option value='"lksjtj":true'>路口数据统计</option>
+							<option value='"lkhztj":true'>路口汇总统计</option>
+							<option value='"lkhzbb":true'>路口数据报表</option>
+							<option value='"sxtj":true'>初筛统计</option>
+							<option value='"tpdc":true'>图片导出</option>
+							<option value='"mwfcs":true'>初筛复核</option>
+							<option value='"mwfcx":true'>复核查询</option>
+							<option value='"msxtj":true'>复核统计</option>
+							<option value='"lkfxyj":true'>路口分析</option>
+						</optgroup>
+						<optgroup label='系统管理'>
+							<option value='"xtgla":true'>系统管理</option>
+							<option value='"fpsj":true'>分配数据</option>
+							<option value='"point":true'>点位管理</option>
+							<option value='"bmdgl":true'>数据管理</option>
+							<option value='"sjgl":true'>基础数据</option>
+							<option value='"yhgl":true'>用户管理</option>
+							<option value='"bmgl":true'>部门管理</option>
+							<option value='"jsgl":true'>角色管理</option>
+						</optgroup>
+                    </select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">备注: </label>
+				<div class="col-lg-6">
+					<textarea class="form-control" rows="6" ng-model="roleRemarks"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-1 col-lg-5">
+					<span>
+		            	<a href="#/Role"><button type="button" title="取消" class="btn btn-warning bar-h3-btn mr">取消</button></a>
+		            </span>
+					<span>
+		             	<button type="submit" title="提交" class="btn btn-success bar-h3-btn mr" ng-click="addroleinInfo()">提交</button>
+		            </span>
+				</div>
+			</div>
+		</form>
+	</div>
+</section>

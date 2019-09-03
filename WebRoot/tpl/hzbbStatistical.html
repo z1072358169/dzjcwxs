@@ -1,0 +1,90 @@
+<section>
+	<div class="header">
+		<p>
+			<span>路口数据报表</span>
+		</p>
+	</div>
+	<div class="main">
+		<!--查询参数-->
+		<!--第一排-->
+		<div class="col-md-12 column form-horizontal topwsnum">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label class="col-lg-5 control-label">开始时间：</label>
+					<div class="col-lg-7">
+						<input name="start_time" type="text" id="starttime" class="form-control" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 00:00:00'})">
+						<!-- <input type="text" id="starttime" class="form-control"><i class="fa fa-calendar tubiao"></i> -->
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label class="col-lg-5 control-label">结束时间：</label>
+					<div class="col-lg-7">
+						<input name="start_time" type="text" id="endtime" class="form-control" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 23:59:59'})">
+						<!-- <input type="text" id="endtime" class="form-control"><i class="fa fa-calendar tubiao"></i> -->
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<button type="button" class="btn btn-primary mr" ng-click="chaxunzts()">查询</button>
+				<a type="button" class="btn btn-primary mr" id="hzStatisticaa" ng-click="method5('hzStatistical')">导出</a>
+				<!--<button type="button" class="btn btn-primary mr" ng-click="method5('hzStatistical')">导出</button>-->
+			</div>
+		</div>
+		<!--查询参数结束-->
+		<!--查询结果详情列表-->
+		<div class="col-md-12" style="margin-top: 5px">
+			<label class="col-lg-2" style="text-align: left;">共{{pageSize}}条</label>
+			<table class="table table-condensed table-bordered table-hover" id="hzStatistical" style="text-align: center;">
+				<tr class="info">
+					<th colspan="13" style="text-align: center;">华为AI非现场执法平台数据统计({{da_time}})</th>
+				</tr>
+				<tr class="info">
+					<td ng-click="click_xh()">序号</td>
+					<td ng-click="click_a()">地点</td>
+					<td ng-click="click_b()">运行状态</td>
+					<td ng-click="click_c()">平台抓拍总数（条）</td>
+					<td ng-click="click_d()">平台初筛通过（条）</td>
+					<td ng-click="click_e()">人工初筛通过（条）</td>
+					<td ng-click="click_f()">复核通过（条）</td>
+					<td>备注</td>
+					<td>品牌</td>
+					<td ng-click="click_g()">平台筛选率</td>
+					<td ng-click="click_h()">人工初筛率</td>
+					<td ng-click="click_i()">复核通过率</td>
+					<td>说明</td>
+				</tr>
+				<tr ng-repeat="x in items|orderBy:px_xh+px_a+px_b+px_c+px_d+px_e+px_f+px_g+px_h+px_i|filter:search">
+					<td>{{x.xh}}</td>
+					<td>{{x.CJDZ}}</td>
+					<td>{{x.ZT}}</td>
+					<td>{{x.zqcount}}</td>
+					<td>{{x.zqacount}}</td>
+					<td>{{x.sfsfcount}}</td>
+					<td>{{x.mjscztcount}}</td>
+					<td></td>
+					<td>{{x.CSMZ}}</td>
+					<td>{{x.zqacountlv|number :2}}</td>
+					<td>{{x.sfshcountlv|number :2}}</td>
+					<td>{{x.mjscztcountlv|number :2}}</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<!-- <div class="col-md-12">
+			<nav class="text-right">
+				<ul class="pagination">
+					<li><a ng-click="Previous()"> <span>上一页</span> </a>
+					</li>
+					<li ng-repeat="page in pageList"
+						ng-class="{active: isActivePage(page)}"><a
+							ng-click="selectPage(page)">{{ page }}</a>
+					</li>
+					<li><a ng-click="Next()"> <span>下一页</span> </a>
+					</li>
+				</ul>
+			</nav>
+		</div> -->
+	</div>
+</section>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.SblukouMapper" >
+	
+	<!-- 查询部门信息 -->
+   <select id="findSblukou" parameterType="zygh.yfb.wxy.vo.Sblukou" resultType="zygh.yfb.wxy.vo.Sblukou">
+	    select * from sblukou
+		<where>
+			<if test="SBBH != null and SBBH !=''">
+				and SBBH = #{SBBH}
+			</if>
+			<if test="lukouname != null and lukouname !='' ">
+				and lukouname like "%"#{lukouname}"%"
+			</if>
+			<if test="sfxs != null and sfxs !='' ">
+				and sfxs = #{sfxs}
+			</if>
+			<if test="muban != null and muban !='' ">
+				and muban = #{muban}
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加部门信息 -->
+ 	<insert id="addSblukou" parameterType="zygh.yfb.wxy.vo.Sblukou">
+  		insert into sblukou(SBBH,lukouname,sfxs,muban,beizhu)
+  		values(#{SBBH},#{lukouname},#{sfxs},#{muban},#{beizhu})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除部门信息 -->
+  	<delete id="deleteSblukou" parameterType="String">
+  		delete from sblukou where SBBH in
+  		<foreach item="SBBHs" collection="array" open="(" separator="," close=")">
+  			#{SBBHs}
+  		</foreach>
+  	</delete> 
+
+
+	<update id="updateSblukou" parameterType="zygh.yfb.wxy.vo.Sblukou">
+		update sblukou
+		<set>
+			<!--<if test="SBBH != null">SBBH=#{SBBH},</if>-->
+			<if test="lukouname != null">lukouname=#{lukouname},</if>
+			<if test="sfxs != null">sfxs=#{sfxs},</if>
+			<if test="muban != null">muban=#{muban},</if>
+			<if test="beizhu != null">beizhu=#{beizhu}</if>
+		</set>
+		where SBBH=#{SBBH}
+	</update>
+  
+  	 <select id="findSblukouByNum" parameterType="int" resultType="zygh.yfb.wxy.vo.Sblukou">
+  		select * from sblukou where SBBH=#{SBBH}
+  	</select> 
+
+</mapper>

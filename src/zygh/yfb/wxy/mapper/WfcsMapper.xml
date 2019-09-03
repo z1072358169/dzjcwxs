@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.WfcsMapper" >
+
+
+	<sql id="selectWfcsVo">
+		select t1.sysid,t1.HPHM,t1.HPZL,t1.CJSJ,t1.WFDM,t1.CJDZ,t1.SBBH,t1.SFSH,t1.userName,t1.URL1,t1.CSMZ,t1.SJZT,
+	   		t2.licensePlateType,t2.pExplain from wfcs t1 LEFT JOIN plate_type t2 ON t2.licensePlateType = t1.HPZL
+	</sql>
+
+	<select id="findWfcsold" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="zygh.yfb.wxy.vo.Wfcs">
+		<include refid="selectWfcsVo"/>
+		<where>
+			<if test="sysid != null and sysid != 0">
+				and t1.sysid = #{sysid}
+			</if>
+			<!-- 号牌种类 -->
+			<if test="HPZL != null and HPZL !='' ">
+				and t1.HPZL = #{HPZL}
+			</if>
+			<!-- 违法代码 -->
+			<if test="WFDM != null and WFDM !='' ">
+				and t1.WFDM = #{WFDM}
+			</if>
+			<!-- 号牌号码 -->
+			<if test="HPHM != null and HPHM !='' ">
+				and t1.HPHM = #{HPHM}
+			</if>
+			<!-- 采集地址 -->
+			<if test="CJDZ != null and CJDZ !='' ">
+				and t1.CJDZ = #{CJDZ}
+			</if>
+			<!-- 筛选状态 -->
+			<if test="SFSH != null and SFSH !='' ">
+				and t1.SFSH = #{SFSH}
+			</if>
+			<if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+				AND date_format(t1.CJSJ,'%Y%m%d%H%i%s') &gt;= date_format(#{startTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+				AND date_format(t1.CJSJ,'%Y%m%d%H%i%s') &lt;= date_format(#{endTime},'%Y%m%d%H%i%s')
+			</if>
+		</where>
+	</select>
+
+
+	<!-- 查询所有不同的采集地址 -->
+	<select id="findAddressold" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="zygh.yfb.wxy.vo.Wfcs">
+		SELECT CJDZ,COUNT(CJDZ) as addcount FROM wfcs
+		<where>
+			<if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+				AND date_format(CJSJ,'%Y%m%d%H%i%s') &gt;= date_format(#{startTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+				AND date_format(CJSJ,'%Y%m%d%H%i%s') &lt;= date_format(#{endTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="CSMZ != null and CSMZ !='' ">
+				and CSMZ = #{CSMZ}
+			</if>
+			<if test="SJZT != null and SJZT != 0">
+				and SJZT = #{SJZT}
+			</if>
+		</where>
+		GROUP BY CJDZ
+	</select>
+
+	<!-- 查询所有不同的采集地址   初筛用 -->
+	<select id="findAddresscsold" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="zygh.yfb.wxy.vo.Wfcs">
+		SELECT CJDZ,COUNT(CJDZ) as addcount FROM wfcs
+		<where>
+			SFSH = '-1'
+			<!-- 违法代码 -->
+			<if test="WFDM != null and WFDM !='' ">
+				and WFDM = #{WFDM}
+			</if>
+			<if test="CSMZ != null and CSMZ !='' ">
+				and CSMZ = #{CSMZ}
+			</if>
+			<if test="SJZT != null and SJZT != 0">
+				and SJZT = #{SJZT}
+			</if>
+			<if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+				AND date_format(CJSJ,'%Y%m%d%H%i%s') &gt;= date_format(#{startTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+				AND date_format(CJSJ,'%Y%m%d%H%i%s') &lt;= date_format(#{endTime},'%Y%m%d%H%i%s')
+			</if>
+			<!-- 采集地址 -->
+			<if test="CJDZ != null and CJDZ !='' ">
+				and CJDZ like "%"#{CJDZ}"%"
+			</if>
+		</where>
+		GROUP BY CJDZ ORDER BY addcount DESC
+	</select>
+
+	<!-- 查询这个车牌除了本次违法外的其他违法记录  违法初筛的 -->
+	<select id="findqtwfcsold" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="zygh.yfb.wxy.vo.Wfcs">
+		select * from wfcs
+		<where>
+			<if test="sysid != null ">
+				and sysid != #{sysid}
+			</if>
+			<!-- 号牌号码 -->
+			<if test="HPHM != null and HPHM !='' ">
+				and HPHM = #{HPHM}
+			</if>
+			<if test="CSMZ != null and CSMZ !='' ">
+				and CSMZ = #{CSMZ}
+			</if>
+			<if test="SJZT != null and SJZT != 0">
+				and SJZT = #{SJZT}
+			</if>
+			AND TO_DAYS(CJSJ) = TO_DAYS(#{startTime}) and SFSH in('-1','0','1')
+		</where>
+	</select>
+
+	<!-- 初筛查询这个车牌有无同时间同地点的重复数据 -->
+	<select id="findcfcsold" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="long">
+		select count(*) from wfcs
+		<where>
+			<if test="sysid != null ">
+				and sysid != #{sysid}
+			</if>
+			<if test="WFDM != null and WFDM !='' ">
+				and WFDM = #{WFDM}
+			</if>
+			<!-- 号牌号码 -->
+			<if test="HPHM != null and HPHM !='' ">
+				and HPHM = #{HPHM}
+			</if>
+			<if test="CJDZ != null and CJDZ !='' ">
+				and CJDZ = #{CJDZ}
+			</if>
+			<if test="CJSJ != null and CJSJ !='' ">
+				and date_format(CJSJ,'%Y%m%d%H%i%s') = date_format(#{CJSJ},'%Y%m%d%H%i%s')
+			</if>
+		</where>
+	</select>
+
+	<!-- 修改车牌号 -->
+	<update id="updatehphmzlold" parameterType="zygh.yfb.wxy.vo.Wfcs">
+		update wfcs
+		<trim prefix="set" suffixOverrides=",">
+			<if test="HPHM != null and HPHM !='' ">
+				HPHM = #{HPHM},
+			</if>
+			<if test="HPZL != null and HPZL !='' ">
+				HPZL = #{HPZL},
+			</if>
+		</trim>
+		where sysid = #{sysid}
+	</update>
+
+	<!-- 归还未审核的数据 -->
+	<update id="updateghdataold" parameterType="string">
+		update wfcs set userName = '' where userName = #{userName} and SFSH = '-1'
+	</update>
+
+	<!-- 取得记录的总数 -->
+	<select id="getCountold" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="long">
+		select count(*) from wfcs
+		<where>
+			<!-- 号牌种类 -->
+			<if test="HPZL != null and HPZL !='' ">
+				and HPZL = #{HPZL}
+			</if>
+			<!-- 违法代码 -->
+			<if test="WFDM != null and WFDM !='' ">
+				and WFDM = #{WFDM}
+			</if>
+			<!-- 号牌号码 -->
+			<if test="HPHM != null and HPHM !='' ">
+				and HPHM = #{HPHM}
+			</if>
+			<!-- 采集地址 -->
+			<if test="CJDZ != null and CJDZ !='' ">
+				and CJDZ = #{CJDZ}
+			</if>
+			<!-- 筛选状态 -->
+			<if test="SFSH != null and SFSH !='' ">
+				and SFSH = #{SFSH}
+			</if>
+			<if test="CSMZ != null and CSMZ !='' ">
+				and CSMZ = #{CSMZ}
+			</if>
+			<if test="SJZT != null and SJZT != 0">
+				and SJZT = #{SJZT}
+			</if>
+			<if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+				AND date_format(CJSJ,'%Y%m%d%H%i%s') &gt;= date_format(#{startTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+				AND date_format(CJSJ,'%Y%m%d%H%i%s') &lt;= date_format(#{endTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="userName != null and userName !='' ">
+				and userName = #{userName}
+			</if>
+		</where>
+	</select>
+
+	<!-- 带条件的分页SQL语句 -->
+	<select id="findPageByold" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="zygh.yfb.wxy.vo.Wfcs">
+		<include refid="selectWfcsVo"/>
+		<where>
+			<!-- 号牌种类 -->
+			<if test="HPZL != null and HPZL !='' ">
+				and t1.HPZL = #{HPZL}
+			</if>
+			<!-- 违法代码 -->
+			<if test="WFDM != null and WFDM !='' ">
+				and t1.WFDM = #{WFDM}
+			</if>
+			<!-- 号牌号码 -->
+			<if test="HPHM != null and HPHM !='' ">
+				and t1.HPHM = #{HPHM}
+			</if>
+			<!-- 采集地址 -->
+			<if test="CJDZ != null and CJDZ !='' ">
+				and t1.CJDZ = #{CJDZ}
+			</if>
+			<!-- 筛选状态 -->
+			<if test="SFSH != null and SFSH !='' ">
+				and t1.SFSH = #{SFSH}
+			</if>
+			<if test="CSMZ != null and CSMZ !='' ">
+				and t1.CSMZ = #{CSMZ}
+			</if>
+			<if test="SJZT != null and SJZT != 0">
+				and t1.SJZT = #{SJZT}
+			</if>
+			<if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+				AND date_format(t1.CJSJ,'%Y%m%d%H%i%s') &gt;= date_format(#{startTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+				AND date_format(t1.CJSJ,'%Y%m%d%H%i%s') &lt;= date_format(#{endTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="userName != null and userName !='' ">
+				and t1.userName = #{userName}
+			</if>
+		</where>
+		order by t1.sysid desc
+		<if test="start!=null and pageSize!=null">
+			limit #{start},#{pageSize}
+		</if>
+	</select>
+
+	<!-- 筛选状态，加上筛选人，初筛筛选 -->
+	<update id="updateStatueold" parameterType="zygh.yfb.wxy.vo.Wfcs">
+		update wfcs set
+		SFSH = #{SFSH},
+		userName = #{userName},
+		screenDate = #{screenDate}
+		where sysid = #{sysid} and SFSH = '-1'
+	</update>
+
+	<!-- 筛选状态，加上筛选人，初筛误筛 -->
+	<update id="updateStatuecswsold" parameterType="zygh.yfb.wxy.vo.Wfcs">
+		update wfcs set
+		SFSH = #{SFSH},
+		userName = #{userName},
+		screenDate = #{screenDate}
+		where sysid = #{sysid}
+	</update>
+
+
+	<!-- 筛选统计 -->
+	<select id="finduserandcountold" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="zygh.yfb.wxy.vo.ScreenTotel">
+		SELECT userName,screenDate,
+		COUNT(CASE WHEN SFSH in ('0','1') THEN SFSH END) as allTotal,
+		COUNT(CASE WHEN SFSH = '0' THEN SFSH END) as pass,
+		COUNT(CASE WHEN SFSH = '1' THEN SFSH END) as tovoid
+		FROM wfcs
+		<where>
+			userName != ''
+			<if test="WFDM != null and WFDM !='' ">
+				and WFDM = #{WFDM}
+			</if>
+			<if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+				AND date_format(screenDate,'%Y%m%d%H%i%s') &gt;= date_format(#{startTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+				AND date_format(screenDate,'%Y%m%d%H%i%s') &lt;= date_format(#{endTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="userName != null and userName !='' ">
+				and userName = #{userName}
+			</if>
+		</where>
+		GROUP BY userName
+	</select>
+
+	<!-- 筛选统计2 -->
+	<select id="finduserandcount2old" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="zygh.yfb.wxy.vo.ScreenTotel">
+		SELECT userName,screenDate,
+		COUNT(CASE WHEN SFSH in ('0','1') THEN SFSH END) as allTotal,
+		COUNT(CASE WHEN SFSH = '0' THEN SFSH END) as pass,
+		COUNT(CASE WHEN SFSH = '1' THEN SFSH END) as tovoid
+		FROM wfcs
+		<where>
+			userName != ''
+			<if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+				AND date_format(screenDate,'%Y%m%d%H%i%s') &gt;= date_format(#{startTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+				AND date_format(screenDate,'%Y%m%d%H%i%s') &lt;= date_format(#{endTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="userName != null and userName !='' ">
+				and userName = #{userName}
+			</if>
+		</where>
+		GROUP BY userName
+	</select>
+
+	<!-- 筛选统计3 -->
+	<select id="finduserandcount3old" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="zygh.yfb.wxy.vo.ScreenTotel">
+		SELECT userName,screenDate,
+		COUNT(CASE WHEN SFSH = '-1' THEN SFSH END) as screening
+		FROM wfcs
+		<where>
+			userName != ''
+			<if test="userName != null and userName !='' ">
+				and userName = #{userName}
+			</if>
+		</where>
+		GROUP BY userName
+	</select>
+
+	<!-- 初筛筛选统计4  所有人提取的还没筛选的 -->
+	<select id="finduserandcount4old" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="zygh.yfb.wxy.vo.ScreenTotel">
+		SELECT count(*) as allwsx FROM wfcs where SFSH = '-1' AND userName != ''
+	</select>
+
+	<!-- 查询未分配的数据 -userName=''的是未分配的    发送任务，分配任务 -->
+	<select id="getCountfpNameold" parameterType="zygh.yfb.wxy.vo.Wfcs" resultType="long">
+		select count(*) from wfcs
+		<where>
+			<!-- 号牌种类 -->
+			<if test="HPZL != null and HPZL !='' ">
+				and HPZL = #{HPZL}
+			</if>
+			<!-- 违法代码 -->
+			<if test="WFDM != null and WFDM !='' ">
+				and WFDM = #{WFDM}
+			</if>
+			<!-- 号牌号码 -->
+			<if test="HPHM != null and HPHM !='' ">
+				and HPHM = #{HPHM}
+			</if>
+			<!-- 采集地址 -->
+			<if test="CJDZ != null and CJDZ !='' ">
+				and CJDZ = #{CJDZ}
+			</if>
+			<!-- 筛选状态 -->
+			<if test="SFSH != null and SFSH !='' ">
+				and SFSH = #{SFSH}
+			</if>
+			<if test="CSMZ != null and CSMZ !='' ">
+				and CSMZ = #{CSMZ}
+			</if>
+			<if test="SJZT != null and SJZT != 0">
+				and SJZT = #{SJZT}
+			</if>
+			<if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+				AND date_format(CJSJ,'%Y%m%d%H%i%s') &gt;= date_format(#{startTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+				AND date_format(CJSJ,'%Y%m%d%H%i%s') &lt;= date_format(#{endTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test='userName == "1" '>
+				and userName = ''
+			</if>
+			<if test='userName == "2" '>
+				and userName != ''
+			</if>
+			<if test='userName != "1" and userName != "2" '>
+				and userName = #{userName}
+			</if>
+		</where>
+	</select>
+
+	<!-- 选择多少条给谁  ==分配数据//提取数据 -->
+	<update id="updateStatuefpNameold" parameterType="zygh.yfb.wxy.vo.Wfcs">
+		update wfcs set
+		userName = #{userName}
+		<where>
+			userName = ''
+			<!-- 号牌种类 -->
+			<if test="HPZL != null and HPZL !='' ">
+				and HPZL = #{HPZL}
+			</if>
+			<!-- 违法代码 -->
+			<if test="WFDM != null and WFDM !='' ">
+				and WFDM = #{WFDM}
+			</if>
+			<!-- 号牌号码 -->
+			<if test="HPHM != null and HPHM !='' ">
+				and HPHM = #{HPHM}
+			</if>
+			<!-- 采集地址 -->
+			<if test="CJDZ != null and CJDZ !='' ">
+				and CJDZ = #{CJDZ}
+			</if>
+			<!-- 筛选状态 -->
+			<if test="SFSH != null and SFSH !='' ">
+				and SFSH = #{SFSH}
+			</if>
+			<if test="CSMZ != null and CSMZ !='' ">
+				and CSMZ = #{CSMZ}
+			</if>
+			<if test="SJZT != null and SJZT != 0">
+				and SJZT = #{SJZT}
+			</if>
+			<if test="startTime != null and startTime != ''"><!-- 开始时间检索 -->
+				AND date_format(CJSJ,'%Y%m%d%H%i%s') &gt;= date_format(#{startTime},'%Y%m%d%H%i%s')
+			</if>
+			<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+				AND date_format(CJSJ,'%Y%m%d%H%i%s') &lt;= date_format(#{endTime},'%Y%m%d%H%i%s')
+			</if>
+		</where>
+		limit #{pageSize}
+	</update>
+
+	<delete id="deletebyidold" parameterType="int">
+		delete from wfcs where sysid = #{sysid}
+	</delete>
+
+</mapper>

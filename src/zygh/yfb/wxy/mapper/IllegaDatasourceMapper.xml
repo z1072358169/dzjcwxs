@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.IllegaDatasourceMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findIllegaDatasource" parameterType="zygh.yfb.wxy.vo.IllegaDatasource" resultType="zygh.yfb.wxy.vo.IllegaDatasource">
+	    select * from illega_datasource
+		<where>
+			<if test="sysId != null and sysId !='' ">
+			and sysId = #{sysId}
+			</if>
+			<if test="illegal_D_D != null and illegal_D_D !='' ">
+			and illegal_D_D = #{illegal_D_D}
+			</if>
+			<if test="iExplain != null and iExplain !='' ">
+			and iExplain = #{iExplain}
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addIllegaDatasource" parameterType="zygh.yfb.wxy.vo.IllegaDatasource" >
+  		insert into illega_datasource(illegal_D_D,iExplain) 
+  		values(#{illegal_D_D},#{iExplain})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deleteIllegaDatasource" parameterType="int">
+  		delete from illega_datasource where sysId in
+  		<foreach item="sysIds" collection="array" open="(" separator="," close=")">
+  			#{sysIds}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateIllegaDatasource" parameterType="zygh.yfb.wxy.vo.IllegaDatasource">
+    	update illega_datasource
+    	set
+      	illegal_D_D = #{illegal_D_D},
+      	iExplain = #{iExplain}
+      	where sysId = #{sysId} 
+	</update>
+	
+</mapper>

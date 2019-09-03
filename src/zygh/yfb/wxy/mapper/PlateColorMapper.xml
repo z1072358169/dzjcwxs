@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.PlateColorMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findPlateColor" parameterType="zygh.yfb.wxy.vo.PlateColor" resultType="zygh.yfb.wxy.vo.PlateColor">
+	    select * from plate_color
+		<where>
+			<if test="sysId != null and sysId !='' ">
+			and sysId = #{sysId}
+			</if>
+			<if test="licensePlateColor != null and licensePlateColor !='' ">
+			and licensePlateColor = #{licensePlateColor}
+			</if>
+			<if test="pExplain != null and pExplain !='' ">
+			and pExplain = #{pExplain}
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addPlateColor" parameterType="zygh.yfb.wxy.vo.PlateColor" >
+  		insert into plate_color(licensePlateColor,pExplain) 
+  		values(#{licensePlateColor},#{pExplain})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deletePlateColor" parameterType="int">
+  		delete from plate_color where sysId in
+  		<foreach item="sysIds" collection="array" open="(" separator="," close=")">
+  			#{sysIds}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updatePlateColor" parameterType="zygh.yfb.wxy.vo.PlateColor">
+    	update plate_color
+    	set
+      	licensePlateColor = #{licensePlateColor},
+      	pExplain = #{pExplain}
+      	where sysId = #{sysId} 
+	</update>
+	
+</mapper>

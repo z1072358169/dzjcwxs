@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.CarBodyCMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findCarBodyC" parameterType="zygh.yfb.wxy.vo.CarBodyC" resultType="zygh.yfb.wxy.vo.CarBodyC">
+	    select * from car_body_c
+		<where>
+			<if test="sysId != null and sysId !='' ">
+			and sysId = #{sysId}
+			</if>
+			<if test="cCode != null and cCode !='' ">
+			and cCode = #{cCode}
+			</if>
+			<if test="cExplain != null and cExplain !='' ">
+			and cExplain = #{cExplain}
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addCarBodyC" parameterType="zygh.yfb.wxy.vo.CarBodyC" >
+  		insert into car_body_c(cCode,cExplain) 
+  		values(#{cCode},#{cExplain})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deleteCarBodyC" parameterType="int">
+  		delete from car_body_c where sysId in
+  		<foreach item="sysIds" collection="array" open="(" separator="," close=")">
+  			#{sysIds}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateCarBodyC" parameterType="zygh.yfb.wxy.vo.CarBodyC">
+    	update car_body_c
+    	set
+      	cCode = #{cCode},
+      	cExplain = #{cExplain}
+      	where sysId = #{sysId} 
+	</update>
+	
+</mapper>

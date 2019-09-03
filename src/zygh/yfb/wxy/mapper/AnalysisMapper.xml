@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.AnalysisMapper" >
+	
+	<!-- 查询部门信息 -->
+   <select id="findAnalysis" resultType="zygh.yfb.wxy.vo.Analysis">
+	    select * from analysis
+  	</select>
+
+	<select id="findtest" parameterType="zygh.yfb.wxy.vo.Analysis" resultType="zygh.yfb.wxy.vo.ReasonsTj">
+		SELECT DATE(a.CJSJ) AS riqi,a.ReasonsTypeId,a.ReasonsId,rt.ReasonType,r.invalidation,a.WFDM,COUNT(CASE WHEN a.Screening = '1' THEN a.Screening END) AS cssl,COUNT(CASE WHEN a.Screening = '2' THEN a.Screening END) AS ffsl FROM analysis a
+	LEFT JOIN reasons r ON r.ReasonsId = a.ReasonsId
+	LEFT JOIN reasonstype rt ON rt.ReasonsTypeId = a.ReasonsTypeId
+	<where>
+		<if test="WFDM != null and WFDM !='' ">
+			and a.WFDM = #{WFDM}
+		</if>
+		<if test="ReasonsTypeId != null and ReasonsTypeId !='' ">
+			and a.ReasonsTypeId = #{ReasonsTypeId}
+		</if>
+		<if test="CJSJ != null and CJSJ !='' ">
+			and date_format(a.CJSJ,'%Y%m%d') = date_format(#{CJSJ},'%Y%m%d')
+		</if>
+
+	</where>
+	GROUP BY a.ReasonsId ORDER BY a.ReasonsId
+	</select>
+
+	<!-- 查询信息 -->
+	<select id="findAnalysisAndType" parameterType="zygh.yfb.wxy.vo.Analysis" resultType="zygh.yfb.wxy.vo.ReasonsTj">
+         SELECT DATE(a.CJSJ) as riqi,rt.ReasonType,r.invalidation,a.WFDM,COUNT(CASE WHEN a.Screening = '1' THEN a.Screening END) AS cssl,COUNT(CASE WHEN a.Screening = '2' THEN a.Screening END) AS ffsl FROM analysis a
+         LEFT JOIN reasons r on r.ReasonsId = a.ReasonsId
+         LEFT JOIN reasonstype rt on rt.ReasonsTypeId = a.ReasonsTypeId
+         WHERE a.`WFDM` = '1208'
+         GROUP BY a.WFDM,a.ReasonsId,DATE(a.CJSJ)
+	</select>
+
+	<select id="findifadd" parameterType="zygh.yfb.wxy.vo.Analysis" resultType="zygh.yfb.wxy.vo.Analysis">
+		select ReasonsTypeId,ReasonsId,analysisId FROM analysis
+		<where>
+			<if test="sysid != null and sysid !='' ">
+				and sysid = #{sysid}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insertAnalysis" parameterType="zygh.yfb.wxy.vo.Analysis">
+		insert into analysis(ReasonsTypeId,ReasonsId,WFDM,CJSJ,sysid,Screening)
+		values(#{ReasonsTypeId},#{ReasonsId},#{WFDM},#{CJSJ},#{sysid},#{Screening})
+		<!--insert into analysis
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ReasonsTypeId != null ">ReasonsTypeId,</if>
+			<if test="ReasonsId != null ">ReasonsId,</if>
+			<if test="WFDM != null ">WFDM,</if>
+			<if test="CJSJ != null ">CJSJ,</if>
+			<if test="sysid != null ">sysid,</if>
+			<if test="Screening != null ">Screening,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ReasonsTypeId != null ">#{ReasonsTypeId,jdbcType=INTEGER},</if>
+			<if test="ReasonsId != null ">#{ReasonsId,jdbcType=INTEGER},</if>
+			<if test="WFDM != null ">#{WFDM,jdbcType=VARCHAR},</if>
+			<if test="CJSJ != null ">#{CJSJ,jdbcType=VARCHAR},</if>
+			<if test="sysid != null ">#{sysid,jdbcType=INTEGER},</if>
+			<if test="Screening != null ">#{method,jdbcType=VARCHAR},</if>
+		</trim>-->
+	</insert>
+
+	<!-- 修改 -->
+	<update id="updateAnalysis" parameterType="zygh.yfb.wxy.vo.Analysis">
+		update analysis
+		<trim prefix="set" suffixOverrides=",">
+			<if test="ReasonsTypeId != null and ReasonsTypeId !='' ">
+				ReasonsTypeId = #{ReasonsTypeId},
+			</if>
+			<if test="ReasonsId != null and ReasonsId !='' ">
+				ReasonsId = #{ReasonsId},
+			</if>
+			<if test="WFDM != null and WFDM !='' ">
+				WFDM = #{WFDM},
+			</if>
+			<if test="CJSJ != null and CJSJ !='' ">
+				CJSJ = #{CJSJ},
+			</if>
+			<if test="sysid != null and sysid !='' ">
+				sysid = #{sysid},
+			</if>
+			<if test="Screening != null and Screening !='' ">
+				Screening = #{Screening},
+			</if>
+		</trim>
+		where analysisId = #{analysisId}
+	</update>
+  	
+</mapper>

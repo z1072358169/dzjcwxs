@@ -1,0 +1,68 @@
+<section>
+	<div class="header">
+		<p>
+			<span>添加用户</span>
+		</p>
+	</div>
+	<div class="main">
+		<form class="form-horizontal" name="myForm" novalidate>
+			<br />
+			<div class="form-group">
+				<label class="col-lg-2 control-label">部门：</label>
+				<div class="col-lg-4">
+					<select class="form-control" ng-model="sec">
+						<option value ="{{x}}" ng-repeat="x in bumen">{{x.secName}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">角色：</label>
+				<div class="col-lg-4">
+					<select class="form-control" ng-model="rolenn">
+						<option value ="{{x.roleName}}" ng-repeat="x in rolen">{{x.roleName}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">用户ID：</label>
+				<div class="col-lg-4">
+					<input type="text" class="form-control" ng-model="userId">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">用户姓名：</label>
+				<div class="col-lg-4">
+					<input type="text" class="form-control" ng-model="userName">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">账户：</label>
+				<div class="col-lg-4">
+					<input type="text" class="form-control" ng-model="userOA">
+				</div>
+			</div>
+			<div class="form-group">
+				<!--<label class="col-lg-2 control-label">密码：</label>-->
+				<!--<div class="col-lg-4">-->
+					<!--<input type="text" class="form-control" ng-model="passWord">-->
+				<!--</div>-->
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">用户电话：</label>
+				<div class="col-lg-4">
+					<input type="text" class="form-control" ng-model="userPhone">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-1 col-lg-7">
+					<span>
+                    	<a href="#/User"><button type="button" title="取消" class="btn btn-warning bar-h3-btn mr">取消</button></a>
+                    </span>
+					<span>
+                    	<button type="submit" title="提交" class="btn btn-success bar-h3-btn mr" ng-click="adduserinInfo()">提交</button>
+                    </span>
+				</div>
+			</div>
+		</form>
+	</div>
+</section>

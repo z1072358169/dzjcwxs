@@ -1,0 +1,50 @@
+<!-- 全局顶部模块 begin-->
+<nav role="navigation" class="navbar topnavbar" ng-controller="headerCtrl" >
+	<!-- logo begin-->
+	<div class="navbar-header">
+		<a href="#" class="navbar-brand">
+			<div style="padding-top: 10px;padding-left: 15px;">
+				<img src="img/timg.png" alt="App Logo" class="img-responsive" style="  width: 55px;" />
+			</div>
+		</a>
+	</div>
+	<!-- logo end-->
+	<!-- 顶部信息 begin -->
+	<div class="nav-wrapper">
+		<!--&lt;!&ndash; 顶部导航 左 begin &ndash;&gt;-->
+		<div class="nav navbar-nav zhls-navbar">
+			<span class="s1">郑州市交巡警支队违法审核平台</span>
+			<!--<li>-->
+			<!--&lt;!&ndash; pc端显示和隐藏导航栏 &ndash;&gt;-->
+			<!--<a ng-click="app.layout.isCollapsed = !app.layout.isCollapsed" class="hidden-xs">-->
+			<!--<em class="fa fa-navicon"></em>-->
+			<!--</a>-->
+			<!--&lt;!&ndash; 移动设备上显示和隐藏导航栏 &ndash;&gt;-->
+			<!--<a toggle-state="aside-toggled" no-persist="no-persist" class="visible-xs sidebar-toggle">-->
+			<!--<em class="fa fa-navicon"></em>-->
+			<!--</a>-->
+			<!--</li>-->
+
+			<!--<li>-->
+			<!--&lt;!&ndash; Button used to collapse the left sidebar. Only visible on tablet and desktops&ndash;&gt;-->
+			<!--<a href="#" ng-click="toggleUserBlock()">-->
+			<!--<em class="icon-user"></em>-->
+			<!--</a>-->
+			<!--</li>-->
+		</div>
+		<!-- 顶部导航 左 end -->
+		<!-- 顶部导航 右  begin -->
+		<div class="nav navbar-nav navbar-right">
+			<div class="blogo">
+				<a class="btn dropdown-toggle blogo2" data-toggle="dropdown"
+					href="javascript:;"><i class="fa fa-user fa-2x"></i>&nbsp;{{person.userName}}</a>
+				<ul class="dropdown-menu blogo2">
+					<li><a ng-click="perInfo()"><i class="fa fa-user fa-fw"></i>个人信息</a></li>
+					<li><a ng-click="tuichu()"><i class="fa fa-power-off fa-fw"></i>
+							退出</a></li>
+				</ul>
+			</div>
+			<!-- 顶部导航 右  end -->
+		</div>
+</nav>
+<!-- 全局顶部模块 end-->

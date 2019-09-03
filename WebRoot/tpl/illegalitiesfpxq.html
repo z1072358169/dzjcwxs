@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>xiangqing.html</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link href="../css/bootstrap.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/imgpig/cloudzoom.css" />
+	<script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
+	<script src="../js/angular1.5.min.js" type="text/javascript"></script>
+	<script src="../js/angular-cookie.min.js"></script>
+	<script type="text/javascript" src="../js/imgpig/cloudzoom.js"></script>
+	<script type="text/javascript" src="../js/layer/layer.js"></script>
+</head>
+<style>
+	.bar-h3-btn{float: right;}
+	.mr {
+		margin-right: 10px !important;
+	}
+</style>
+<body ng-app="app" ng-controller="xiangqingCtrl">
+		<div class="col-md-12 column">
+			<div id="imgzoom" class="cloudzoom-div">
+			</div>
+			<div style="margin: 0;padding:0;">
+				<table style="width: 100%;margin: 0;" class="table table-condensed">
+					<thead>
+						<tr class="infohs">
+							<th colspan="3">车辆识别信息</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="width: 33%;">
+								<div style="width: 25%;float: left;text-align: right;font-weight: bold;line-height: 35px;">车牌号码：</div>
+								<div style="width: 40%;float:left;color: #ffffff;font-size: 24px;font-weight: 700;">
+									<input type="text" ng-click="HPHMupdata()" style="width: 100%;background-color:#0030d7;border: 0;padding: 0 0 0 5px;margin:0;" ng-model="prmdata.HPHM" ng-change="hphmUpperCase()"/>
+									<div id="inform" style="position: absolute;background-color: #ffffff;box-shadow: 0px 0px 10px #000;display: none;">
+										<div class="col-md-12" style="margin-top: 10px;margin-bottom: 10px;">
+											<button type="button" class="btn btn-secondary bar-h3-btn mr" ng-click="hphmoff()">取消</button>
+											<button type="button" class="btn btn-primary bar-h3-btn mr" ng-click="hphmok()">确定</button>
+										</div>
+									</div>
+								</div>
+								<div style="width: 35%;float: left;text-align: center;position:relative;">
+									<div ng-click="tipsQCellCore()" style="height: 35px;line-height: 35px;margin: 0;font-size: 21px;padding: 0;width: 40px;"><em class="glyphicon glyphicon-th-large"></em></div>
+									<div id="QCellCore" style="z-index:9999;top: -177px;left: -226px;width: 226px;height: 175px;padding: 1px;position: absolute;background-color: #ffffff;box-shadow: 0px 0px 10px #000;display: none;">
+										<button type="button" ng-repeat="a in guishud" ng-click="QCellCore(a)"
+												style="float: left;margin:2px;font-weight: bold;padding: 3px;font-size: 16px;" class="btn btn-primary">{{a}}</button>
+										<button type="button" ng-click="QCellCoreqx()" style="float: right;margin:2px;font-weight: bold;padding: 3px;font-size: 16px;" class="btn btn-primary">取消</button>
+									</div>
+								</div>
+								<!--<div style="width: 30%;float: left;text-align: right;font-weight: bold;">车牌号码：</div>-->
+								<!--<div style="width: 50%;">-->
+									<!--{{prmdata.HPHM}}-->
+								<!--</div>-->
+							</td>
+							<td style="width: 33%;">
+								<div style="width: 30%;font-weight: bold;  float: left;text-align: right;">号牌种类：</div>
+								<div style="width: 50%;float:left;border:1px solid #000;padding: 1px 2px;">
+									{{prmdata.pExplain}}
+								</div>
+							</td>
+							<td style="width: 33%;">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<table style="width: 100%;margin: 0;" class="table table-condensed">
+					<thead>
+						<tr class="infohs">
+							<th colspan="4">车辆违法信息</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="width: 25%;">
+								<div style="width: 25%;font-weight: bold;  float: left;text-align: right;">违法时间：</div>
+								<div style="width: 70%;float:left;border:1px solid #000;padding: 1px 2px;">
+									{{prmdata.CJSJ}}
+								</div>
+							</td>
+							<td style="width: 25%;">
+								<div style="width: 25%;font-weight: bold;  float: left;text-align: right;">违法地点：</div>
+								<div style="width: 70%;float:left;border:1px solid #000;padding: 1px 2px;">
+									{{prmdata.CJDZ}}
+								</div>
+							</td>
+							<td style="width: 25%;">
+								<div style="width: 25%;font-weight: bold;  float: left;text-align: right;">违法类型：</div>
+								<div style="width: 70%;float:left;border:1px solid #000;padding: 1px 2px;">
+									{{prmdata.WFDM}}
+								</div>
+							</td>
+							<td style="width: 25%;">
+								<div style="width: 25%;font-weight: bold;  float: left;text-align: right;">审核状态：</div>
+								<div style="width: 70%;float:left;border:1px solid #000;padding: 1px 2px;">
+									{{prmdata.SFSH}}
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<table style="width: 100%;margin: 0;text-align: center;" class="table table-condensed table-bordered">
+					<thead>
+						<tr class="infohs">
+							<th style="width: 25%;text-align: center;padding:2px;">违法时间</th>
+							<th style="width: 30%;text-align: center;padding:2px;">违法地点</th>
+							<th style="width: 20%;text-align: center;padding:2px;">违法行为</th>
+							<th style="width: 15%;text-align: center;padding:2px;">审核状态</th>
+							<th style="width: 10%;text-align: center;padding:2px;">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="a in illwfsjdata" style="background-color: #E8D380;">
+							<td style="padding:0;">{{a.CJSJ}}</td>
+							<td style="padding:0;">{{a.CJDZ}}</td>
+							<td style="padding:0;">{{a.WFDM}}</td>
+							<td style="padding:0;">{{a.SFSH}}</td>
+							<td style="padding:0;" ng-click="xqshaixuan(a)"><span class="glyphicon glyphicon-search"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- <div class="col-md-12 column form-horizontal" style="margin-top: 10px;">
+			<table class="table table-hover">
+				<tr class="info">
+					<td colspan="3">车辆识别信息</td>
+				</tr>
+				<tr>
+					<td style="width: 33%">
+						<div class="form-group">
+							<label class="col-lg-4 control-label">采集机关：</label>
+							<div class="col-lg-7 form-controla">
+								{{prmdata.CJJGDM}}
+							</div>
+						</div>
+					</td>
+					<td style="width: 33%">
+						<div class="form-group">
+							<label class="col-lg-4 control-label">号牌种类：</label>
+							<div class="col-lg-6 form-controla">
+								{{prmdata.HPZL}}
+							</div>
+						</div>
+					</td>
+					<td style="width: 33%">
+						<div class="form-group">
+							<label class="col-lg-4 control-label">号牌号码：</label>
+							<div class="col-lg-6 " style="background-color: #0030d7;height: 40px;color: #ffffff;font-size: 28px;">
+								{{prmdata.HPHM}}
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr class="info">
+					<td colspan="3">车辆违法信息</td>
+				</tr>
+				<tr>
+					<td style="width: 33%">
+						<div class="form-group">
+							<label class="col-lg-4 control-label">违法时间：</label>
+							<div class="col-lg-7 form-controla">
+								{{prmdata.SJSCSJ}}
+							</div>
+						</div>
+					</td>
+					<td style="width: 33%">
+						<div class="form-group">
+							<label class="col-lg-4 control-label">违法地点：</label>
+							<div class="col-lg-7 form-controla">
+								{{prmdata.CJDZ}}SJSCSJ
+							</div>
+						</div>
+					</td>
+					<td style="width: 33%">
+						<div class="form-group">
+							<label class="col-lg-4 control-label">车速：</label>
+							<div class="col-lg-6 form-controla">
+								{{prmdata.vehicleSpeed}}km/h
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div> -->
+		<div class="col-md-12" style="padding-top: 15px;">
+			<div style="width: 400px;float: right;">
+				<button type="button" class="btn btn-secondary bar-h3-btn mr" ng-click="off()">关闭</button>
+				<button type="button" class="btn btn-primary bar-h3-btn mr" ng-show="illegatf" ng-click="ok()">通过</button>
+				<button type="button" class="btn btn-primary bar-h3-btn mr" ng-click="UpDownOne(1)">下一条</button>
+				<button type="button" class="btn btn-primary bar-h3-btn mr" ng-click="UpDownOne(-1)">上一条</button>
+				<button type="button" class="btn btn-danger bar-h3-btn mr" ng-show="illegatf" ng-click="remove()">作废</button>
+			</div>
+			<div ng-show="illegatf" style="width: 240px;float: right;height: 50px;line-height: 50px;text-align: right;">快捷键:作废:CTRL+Z;通过:CTRL+C;</div>
+		</div>
+</body>
+</html>
+<script>
+    var GserverURL = "/dzjcck/";
+    var app = angular.module('app', ['ngCookies']);
+    app.controller('xiangqingCtrl', function($scope, $http,$cookieStore,$timeout) {
+        var id = GetQueryString("id");
+        var illega = GetQueryString("illega");
+        var keypd = 0;
+        if(illega=="1"){
+            $scope.illegatf = true;
+            keypd = 0;
+		}else{
+            keypd = 1;
+            $scope.illegatf = false;
+		}
+        $scope.person = $cookieStore.get("person");
+        $scope.prmdata = {};
+        $scope.prmdata.URL1 = "../img/400.jpg";
+        var itemslist = $cookieStore.get("csidlist");
+        if(itemslist==undefined){
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        }
+        //判断图片是否存在
+        function CheckImgExists(imgurl) {
+            var imgurlsrc;
+            try {
+                if (imgurl.CSMZ=="海康"){
+                    imgurlsrc = "http://41.5.252.8:8090/" + imgurl.CJSJ.substr(0,10) + "/" + imgurl.URL1.split("?")[1] + ".jpg";
+                    var xmlHttp ;
+                    if (window.ActiveXObject){
+                        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }else if (window.XMLHttpRequest){
+                        xmlHttp = new XMLHttpRequest();
+                    }
+                    xmlHttp.open("Get",imgurlsrc,false);
+                    xmlHttp.send();
+                    return (xmlHttp.status==404)?imgurl.URL1:imgurlsrc;
+                }else{
+                    return imgurl.URL1;
+                }
+            }catch(err){
+                return imgurl.URL1;
+            }
+        };
+//    	var wfdd=parent.$("#exampledata1").val();
+//    	var hphm=parent.$("#hphm").val();
+//    	var starttime=parent.$("#starttime").val();
+//    	var endtime=parent.$("#endtime").val();
+//    	var wfxw=parent.$("#wfxw").val();
+//        var data_type=parent.$("#data_type").val();
+        $scope.guishud = ["豫","京","津","沪","渝","蒙","新","藏","宁","桂","港","澳","黑","吉","辽","晋","冀","青","鲁","苏","皖","浙","闽","赣","湘","鄂","粤","琼","甘","陕","黔","云","川"];
+
+        $scope.lopopup = function(){
+			layer.load(1, {
+				shade: [0.3, '#393D49']
+			});
+		};
+		$scope.popup1 = function(name){
+			layer.closeAll('loading');
+			layer.msg(name);
+		};
+		//查询当天其他违法数据
+		$scope.illwfsj = function(data1,data2,data3,data4,data5){
+			$http({
+	            method : 'get',
+//	            url : GserverURL + "findqtwfcs.action",
+                url : GserverURL + "findqtJsfpfz.action",
+	            params:{
+	                sysid:data1,
+	                HPHM:data2,
+	                startTime:data3
+	            }
+	        }).success(function(data) {
+                $scope.illwfsjcf(data1,data2,data3,data4,data5);
+	       	 	var da = data;
+	        	angular.forEach(da, function(data, index) {
+			                switch(data.SFSH){
+			                    case '-1':data.SFSH='未审核'; break;
+			                    case '0':data.SFSH='已通过'; break;
+			                    case '1':data.SFSH='已作废'; break;
+			                };
+			            });
+	        	$scope.illwfsjdata = da;
+	        }).error(function() {
+	            $scope.popup1("错误");
+	        });
+		};
+        //上一条下一条
+        $scope.UpDownOne = function(a){
+        	$scope.lopopup();
+        	var b = itemslist.indexOf($scope.prmdata.sysid);//位置
+        	if(b==-1){
+        		$scope.popup1("数据错误");
+        	}else if(a==-1&&b==0){
+        		$scope.popup1("已经是第一条了");
+                $scope.idchaxunwfxx($scope.prmdata.sysid);
+        	}else if(a==1&&b==itemslist.length-1){
+        		$scope.popup1("已经是最后一条了");
+                $scope.idchaxunwfxx($scope.prmdata.sysid);
+        	}else{
+        		var c = itemslist[b+a];
+                $scope.idchaxunwfxx(c);
+        	}
+        };
+        //按id查询
+        $scope.idchaxunwfxx = function (c) {
+            $scope.prmdata.URL1 = "../img/400.jpg";
+            $http({
+                method : 'get',
+//                url : GserverURL + "queryIntervalVM.action",
+                url : GserverURL + "findJsfpfz.action",
+                params:{
+                    sysid:c
+                }
+            }).success(function(data) {
+                layer.closeAll('loading');
+                if(data[0] == null||data[0] == "null"){
+                    $scope.popup1("已经是第一条了");
+                }else{
+                    var imgurlsrc = CheckImgExists(data[0]);
+                    $("#imgzoom").empty();
+                    var imgzom = "<img class = \"cloudzoom\" src=\""+imgurlsrc+"\" style=\"width: 600px;height: 400px;\" data-cloudzoom = \"tintOpacity:0,zoomFlyOut:false,zoomSizeMode:'zoom',startMagnification:5,maxMagnification:8\" />";
+                    if($(".cloudzoom-lens").length > 0) {
+                        $(".cloudzoom-lens").children("img").attr('src', imgurlsrc)
+                    }
+                    if($(".cloudzoom-zoom").length > 0) {
+                        $(".cloudzoom-zoom").children("img").attr('src', imgurlsrc)
+                    }
+                    $("#imgzoom").prepend(imgzom);
+                    $scope.illwfsj(data[0].sysid,data[0].HPHM,data[0].CJSJ,data[0].CJDZ,data[0].WFDM);
+                    var da = data;
+                    angular.forEach(da, function(data, index) {
+                        switch(data.SFSH){
+                            case '-1':$scope.njzt = false;data.SFSH='未审核'; break;
+                            case '0':$scope.njzt = true;data.SFSH='已通过'; break;
+                            case '1':$scope.njzt = true;data.SFSH='已作废'; break;
+                        };
+                    });
+                    $scope.prmdata = da[0];
+                    CloudZoom.quickStart();
+                };
+                if(illega=="1"){
+                    $scope.illegatf = true;
+                    keypd = 0;
+                }else{
+                    keypd = 1;
+                    $scope.illegatf = false;
+                }
+            }).error(function() {
+                layer.closeAll('loading');console.log("错误");
+            });
+        };
+        $scope.idchaxunwfxx(id);
+        //作废
+        $scope.remove = function() {
+        		keypd = 1;
+        		$scope.lopopup();
+				if($scope.njzt){
+//					var url="/dzjc/updateStatus.action";
+                    var url="../updateStatuecswsfz.action";
+				}else{
+//					var url="/dzjc/updateStatuecsws.action";
+                    var url="../updateStatusfz.action";
+				};
+	            $http({
+	                method : 'get',
+	                url : url,
+	                params:{
+	                    sysid:$scope.prmdata.sysid,
+                		userName : $scope.person.userName,
+						HPHM: $scope.prmdata.HPHM,
+	                    SFSH:1
+	                }
+	            }).success(function(data) {
+	                $scope.popup1(data);
+	                $scope.UpDownOne(1);
+	                //$scope.DownOne();
+	            }).error(function() {
+	                $scope.popup1('无法连接到服务器');
+	        	});
+        };
+        //通过
+        $scope.ok = function() {
+        		keypd = 1;
+        		$scope.lopopup();
+				if($scope.njzt){
+//					var url="/dzjc/updateStatus.action";
+                    var url="../updateStatuecswsfz.action";
+
+				}else{
+//					var url="/dzjc/updateStatuecsws.action";
+                    var url="../updateStatusfz.action";
+				};
+		        $http({
+	                method : 'get',
+	                url : url,
+	                params:{
+	                    sysid:$scope.prmdata.sysid,
+                		userName : $scope.person.userName,
+                        HPHM: $scope.prmdata.HPHM,
+	                    SFSH:0
+	                }
+	            }).success(function(data) {
+	                $scope.popup1(data);
+	                $scope.UpDownOne(1);
+	                //$scope.DownOne();
+	            }).error(function() {
+	                $scope.popup1('无法连接到服务器');
+	            });
+        };
+        //查询是否有重复数据
+        $scope.illwfsjcf = function(data1,data2,data3,data4,data5){
+            $http({
+                method : 'get',
+//                url : GserverURL + "findcfcs.action",
+                url : GserverURL + "findcfcsfz.action",
+                params:{
+                    sysid:data1,
+                    HPHM:data2,
+                    CJSJ:data3,
+                    CJDZ:data4,
+                    WFDM:data5
+                }
+            }).success(function(data) {
+                if(data==1){
+                    layer.msg("此车辆同一时间,同一地点重复出现");
+                }
+            }).error(function() {
+                layer.closeAll('loading');console.log("错误");
+            });
+        };
+		//修改车牌号
+        $scope.HPHMupdata = function(){
+            //$("#inform").css('display','block');
+            if($("#inform").css('display') === 'none'){
+                $("#inform").css('display','block');
+                $scope.upHPHM = $scope.prmdata.HPHM;
+            };
+        };
+        $scope.hphmoff = function(){
+            //$("#inform").css('display','block');
+            $scope.prmdata.HPHM = $scope.upHPHM;
+            $("#inform").css('display','none');
+        };
+        $scope.hphmok = function(){
+            $scope.lopopup();
+            $http({
+                method : 'get',
+//                url : "/dzjc/updatehphm.action",
+                url : "../updatehphmzlfz.action",
+                params:{
+                    sysid:$scope.prmdata.sysid,
+                    HPHM:$scope.prmdata.HPHM
+                }
+            }).success(function(data) {
+                $scope.popup1(data);
+                $("#inform").css('display','none');
+            }).error(function() {
+                $scope.popup1('无法连接到服务器');
+            });
+        };
+        $scope.hphmUpperCase = function(){//小写转大写
+            var hp2 = "";
+            $timeout(function() {
+                angular.forEach($scope.prmdata.HPHM,function(data,index){
+                    var hp = data.charCodeAt();
+                    if(hp>=97&&hp<=122){
+                        hp = hp-32;
+                    }
+                    data = String.fromCharCode(hp);
+                    hp2 = hp2+data;
+                });
+                $scope.prmdata.HPHM = hp2;
+            }, 100);
+        };
+		//号牌归属地
+        $scope.tipsQCellCore = function(){
+            if($("#QCellCore").css('display') === 'none'){
+                $("#QCellCore").css('display','block');
+            };
+        };
+        $scope.QCellCore = function(data){
+            $scope.prmdata.HPHM = data + $scope.prmdata.HPHM.slice(1);
+            $scope.lopopup();
+            $http({
+                method : 'get',
+//                url : "/dzjc/updatehphm.action",
+                url : "../updatehphmzlfz.action",
+                params:{
+                    sysid:$scope.prmdata.sysid,
+                    HPHM:$scope.prmdata.HPHM
+                }
+            }).success(function(data) {
+                $scope.popup1(data);
+                $("#inform").css('display','none');
+                $("#QCellCore").css('display','none');
+            }).error(function() {
+                $scope.popup1('无法连接到服务器');
+            });
+        };
+        $scope.QCellCoreqx = function(data){
+            $("#QCellCore").css('display','none');
+        };
+
+        $scope.off = function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        };
+        function GetQueryString(name)//获取链接参数
+        {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null)
+                return unescape(r[2]);
+            return null;
+        };
+        //快捷键
+        document.onkeydown = function(e) {
+	        var keyCode = e.keyCode || e.which || e.charCode;
+	        var ctrlKey = e.ctrlKey || e.metaKey;
+	        if(ctrlKey && keyCode == 67) {
+	            if(keypd==0){
+	            	$scope.ok();
+	            }
+	        }
+	        if(ctrlKey && keyCode == 90) {
+	        	if(keypd==0){
+	            	$scope.remove();
+	            }	
+	        }
+	    };
+    });
+</script>

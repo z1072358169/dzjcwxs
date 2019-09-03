@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.SectorsMapper" >
+	
+	<!-- 查询部门信息 -->
+   <select id="findSectors" parameterType="zygh.yfb.wxy.vo.Sectors" resultType="zygh.yfb.wxy.vo.Sectors">
+	    select * from sectors
+		<where>
+			<if test="sectorsNum != null and sectorsNum !=''">
+				and sectorsNum = #{sectorsNum}
+			</if>
+			<if test="secId != null and secId !='' ">
+				and secId like "%"#{secId}"%"
+			</if>
+			<if test="secName != null and secName !='' ">
+				and secName like "%"#{secName}"%"
+			</if>
+			<if test="secRemarks != null and secRemarks !='' ">
+				and secRemarks like "%"#{secRemarks}"%"
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加部门信息 -->
+ 	<insert id="addSectors" parameterType="zygh.yfb.wxy.vo.Sectors">
+  		insert into sectors(secId,secName,secRemarks) 
+  		values(#{secId},#{secName},#{secRemarks})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除部门信息 -->
+  	<delete id="deleteSectors" parameterType="int">
+  		delete from sectors where sectorsNum in
+  		<foreach item="sectorsNums" collection="array" open="(" separator="," close=")">
+  			#{sectorsNums}
+  		</foreach>
+  	</delete> 
+  
+  	<!-- 修改部门信息 --> 	
+  	<update id="updateSectors" parameterType="zygh.yfb.wxy.vo.Sectors">
+    	update sectors
+    	set
+      	secId = #{secId},
+      	secName = #{secName},
+      	secRemarks = #{secRemarks}
+      	where sectorsNum = #{sectorsNum} 
+	</update>
+  
+  	 <select id="findSectorsByNum" parameterType="int" resultType="zygh.yfb.wxy.vo.Sectors">
+  		select * from sectors where sectorsNum=#{sectorsNum}
+  	</select> 
+
+</mapper>

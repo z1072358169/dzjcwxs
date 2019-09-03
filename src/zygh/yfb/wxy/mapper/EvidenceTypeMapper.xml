@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.EvidenceTypeMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findEvidenceType" parameterType="zygh.yfb.wxy.vo.EvidenceType" resultType="zygh.yfb.wxy.vo.EvidenceType">
+	    select * from evidence_type
+		<where>
+			<if test="sysId != null and sysId !='' ">
+			and sysId = #{sysId}
+			</if>
+			<if test="eCode != null and eCode !='' ">
+			and eCode = #{eCode}
+			</if>
+			<if test="eExplain != null and eExplain !='' ">
+			and eExplain = #{eExplain}
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addEvidenceType" parameterType="zygh.yfb.wxy.vo.EvidenceType" >
+  		insert into evidence_type(eCode,eExplain) 
+  		values(#{eCode},#{eExplain})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deleteEvidenceType" parameterType="int">
+  		delete from evidence_type where sysId in
+  		<foreach item="sysIds" collection="array" open="(" separator="," close=")">
+  			#{sysIds}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateEvidenceType" parameterType="zygh.yfb.wxy.vo.EvidenceType">
+    	update evidence_type
+    	set
+      	eCode = #{eCode},
+      	eExplain = #{eExplain}
+      	where sysId = #{sysId} 
+	</update>
+	
+</mapper>

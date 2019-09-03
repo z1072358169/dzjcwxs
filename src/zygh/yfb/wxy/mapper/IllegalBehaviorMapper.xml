@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.IllegalBehaviorMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findIllegalBehavior" parameterType="zygh.yfb.wxy.vo.IllegalBehavior" resultType="zygh.yfb.wxy.vo.IllegalBehavior">
+	    select * from illegal_behavior
+		<where>
+			<if test="sysId != null and sysId !='' ">
+			and sysId = #{sysId}
+			</if>
+			<if test="illegal_number != null and illegal_number !='' ">
+			and illegal_number = #{illegal_number}
+			</if>
+			<if test="illegal_explanation != null and illegal_explanation !='' ">
+			and illegal_explanation = #{illegal_explanation}
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addIllegalBehavior" parameterType="zygh.yfb.wxy.vo.IllegalBehavior" >
+  		insert into illegal_behavior(illegal_number,illegal_explanation) 
+  		values(#{illegal_number},#{illegal_explanation})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deleteIllegalBehavior" parameterType="int">
+  		delete from illegal_behavior where sysId in
+  		<foreach item="sysIds" collection="array" open="(" separator="," close=")">
+  			#{sysIds}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateIllegalBehavior" parameterType="zygh.yfb.wxy.vo.IllegalBehavior">
+    	update illegal_behavior
+    	set
+      	illegal_number = #{illegal_number},
+      	illegal_explanation = #{illegal_explanation}
+      	where sysId = #{sysId} 
+	</update>
+	
+<!-- 	<select id="selectlicenseIllegalBehaviorCount" parameterType="string" resultType="zygh.yfb.wxy.vo.IllegalBehavior">
+		select * from illegal_behavior where illegal_number = #{illegal_number}
+		<where>
+			<if test="licenseIllegalBehavior != null and licenseIllegalBehavior !='' ">
+			and licenseIllegalBehavior = #{licenseIllegalBehavior}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectpExplainCount" parameterType="string" resultType="zygh.yfb.wxy.vo.IllegalBehavior">
+		select * from illegal_behavior where illegal_explanation = #{illegal_explanation}
+		<where>
+			<if test="pExplain != null and pExplain !='' ">
+			and pExplain = #{pExplain}
+			</if>
+		</where>
+	</select> -->
+	
+	
+</mapper>

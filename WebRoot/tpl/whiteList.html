@@ -1,0 +1,135 @@
+<section>
+	<div class="header">
+		<p>
+			<span>数据管理</span>
+		</p>
+	</div>
+	<!-- <div class="col-lg-2 main1">
+       <hr class="mt mb">
+			<ul class="nav nav-list nav-pills nav-stacked">
+				<li ng-repeat="item1 in items1" class="item" ng-class="{'active': item1.sectorsNum == states.activeItem}" ng-click="states.activeItem=item1.sectorsNum">
+					<a class="btn-a" ng-click="shuaxin(item1.secId)"><span>{{item1.secName}}</span></a>
+				</li>
+			</ul>
+	</div> -->
+	<div class="col-lg-12 main">
+	<div class="col-md-12 column form-horizontal topwsnum">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">号牌号码：</label>
+					<div class="col-lg-6">
+						<div class="input-group">
+						     <span class="input-group-btn">
+						          <select class="btn btn-default" ng-model="data_cc" style="height: 34px;">
+						          	<option value="">全部</option>
+						            <option value="豫">豫</option>
+									<option value="京">京</option>
+									<option value="津">津</option>
+									<option value="沪">沪</option>
+									<option value="渝">渝</option>
+									<option value="蒙">蒙</option>
+									<option value="新">新</option>
+									<option value="藏">藏</option>
+									<option value="宁">宁</option>
+									<option value="桂">桂</option>
+									<option value="港">港</option>
+									<option value="澳">澳</option>
+									<option value="黑">黑</option>
+									<option value="吉">吉</option>
+									<option value="辽">辽</option>
+									<option value="晋">晋</option>
+									<option value="冀">冀</option>
+									<option value="青">青</option>
+									<option value="鲁">鲁</option>
+									<option value="苏">苏</option>
+									<option value="皖">皖</option>
+									<option value="浙">浙</option>
+									<option value="闽">闽</option>
+									<option value="赣">赣</option>
+									<option value="湘">湘</option>
+									<option value="鄂">鄂</option>
+									<option value="粤">粤</option>
+									<option value="琼">琼</option>
+									<option value="甘">甘</option>
+									<option value="陕">陕</option>
+									<option value="黔">黔</option>
+									<option value="云">云</option>
+									<option value="川">川</option>
+						          </select>
+						     </span>
+						     <input type="text" class="form-control" ng-model="data_c">
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<button type="button" class="btn btn-primary bar-h3-btn mr" ng-click="shuaxin()">查询</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4">
+				<button type="button"
+					class="btn btn-danger bar-h3-btn mr" ng-click="delIllegal()">
+					<em class="fa fa-trash fa-fw mr-sm"></em>删除
+				</button>
+				<button type="button"
+					class="btn btn-warning bar-h3-btn mr" ng-click="updcanshu()">
+					<em class="fa fa-pencil fa-fw mr-sm"></em>修改
+				</button> 
+				<button type="button" class="btn btn-primary bar-h3-btn mr" ng-click="addcanshu()">
+						<em class="fa fa-plus fa-fw mr-sm"></em>添加
+				</button>
+			</div>
+		</div>
+		<div class="col-md-12" style="margin-top: 5px">
+			<label class="col-lg-2" style="text-align: left;">共{{zongshu}}条</label>
+			<table class="table table-condensed table-bordered table-hover" style="text-align: center;">
+				<tr class="info">
+					<td style="width: 10%"><input type="checkbox" ng-model="select_all"
+						ng-click="selectAll()" /></td>
+					<td>车牌号</td>
+					<td>号牌种类</td>
+					<td>使用业务</td>
+					<td>开始时间</td>
+					<td>结束时间</td>
+					<td>备注</td>
+				</tr>
+				<tr ng-repeat="x in items" ng-dblclick="selecttwo(x)">
+					<td><input type="checkbox" ng-model="x.checked"
+						ng-click="selectOne()" /></td>
+					<td>{{x.hphm}}</td>
+					<td>{{x.hpzl}}</td>
+					<td>{{x.usebusiness}}</td>
+					<td>{{x.start_time}}</td>
+					<td>{{x.end_time}}</td>
+					<td>{{x.remark}}</td>
+				</tr>
+			</table>
+		</div>
+		<input type="hidden" id="sysid"/>
+		<input type="hidden" id="ztpd"/>
+		<input type="hidden" id="hphm"/>
+		<input type="hidden" id="hpzl"/>
+		<input type="hidden" id="usebusiness"/>
+		<input type="hidden" id="start_time"/>
+		<input type="hidden" id="end_time"/>
+		<input type="hidden" id="remark"/>
+		<input type="hidden" id="tjxg"/>
+		<div class="col-md-12">
+			<nav class="text-right">
+				<ul class="pagination">
+					<li><a ng-click="Previous()"> <span>上一页</span> </a>
+					</li>
+					<li ng-repeat="page in pageList"
+						ng-class="{active: isActivePage(page)}"><a
+						ng-click="selectPage(page)">{{ page }}</a>
+					</li>
+					<li><a ng-click="Next()"> <span>下一页</span> </a>
+					</li>
+				</ul>
+			</nav>
+		</div>	
+	</div>
+</section>

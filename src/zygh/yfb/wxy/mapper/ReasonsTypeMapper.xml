@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.ReasonsTypeMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findReasonsType" parameterType="zygh.yfb.wxy.vo.ReasonsType" resultType="zygh.yfb.wxy.vo.ReasonsType">
+	    select ReasonsTypeId,ReasonType,WFDM from reasonsType
+	    <where>
+			<if test="ReasonsTypeId != null and ReasonsTypeId !='' ">
+				AND ReasonsTypeId = #{ReasonsTypeId}
+			</if>
+			<if test="WFDM != null and WFDM !='' ">
+				AND WFDM = #{WFDM}
+			</if>
+		</where>
+  	</select>
+
+	<!-- 关联原因表查询查询信息 -->
+	<select id="findReasonsAndType" parameterType="zygh.yfb.wxy.vo.ReasonsType" resultType="zygh.yfb.wxy.vo.ReasonsType">
+		SELECT rt.ReasonsTypeId,rt.ReasonType,rt.WFDM,r.`invalidation`,r.`ReasonsId` FROM reasonstype rt,reasons r
+		WHERE rt.`ReasonsTypeId` = r.`ReasonsTypeId`
+			<if test="WFDM != null and WFDM !='' ">
+				AND rt.WFDM = #{WFDM}
+			</if>
+	</select>
+
+	<!-- 添加 -->
+  	<insert id="insertReasonsType" parameterType="zygh.yfb.wxy.vo.ReasonsType">
+  		insert into reasonsType(ReasonType,WFDM)
+  		values(#{ReasonType},#{WFDM})
+  	</insert>
+
+	<!-- 删除信息 -->
+  	<delete id="deleteReasonsType" parameterType="int">
+  		delete from reasonsType where ReasonsTypeId in
+  		<foreach item="ReasonsTypeIds" collection="array" open="(" separator="," close=")">
+  			#{ReasonsTypeIds}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateReasonsType" parameterType="zygh.yfb.wxy.vo.ReasonsType">
+    	update reasonsType
+		<trim prefix="set" suffixOverrides=",">
+			<if test="ReasonType != null and ReasonType !='' ">
+				ReasonType = #{ReasonType},
+			</if>
+			<if test="WFDM != null and WFDM != 0 ">
+				WFDM = #{WFDM},
+			</if>
+		</trim>
+      	where ReasonsTypeId = #{ReasonsTypeId}
+	</update>
+  	
+	
+</mapper>

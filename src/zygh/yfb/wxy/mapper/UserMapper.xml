@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.UserMapper" >
+	
+	<!-- 查询用户信息 -->
+   <select id="findUser" parameterType="zygh.yfb.wxy.vo.User" resultType="zygh.yfb.wxy.vo.User">
+	    select * from user
+		<where>
+			<if test="userNum != null and userNum !=''">
+				and userNum = #{userNum}
+			</if>
+			<if test="secId != null and secId !='' ">
+				and secId = #{secId}
+			</if>
+			<if test="secName != null and secName !='' ">
+				and secName = #{secName}
+			</if>
+			<if test="userName != null and userName !='' ">
+				and userName like "%"#{userName}"%"
+			</if>
+			<if test="userId != null and userId !='' ">
+				and userId = #{userId}
+			</if>
+			<if test="roleName != null and roleName !='' ">
+				and roleName = #{roleName}
+			</if>
+			<if test="userOA != null and userOA !='' ">
+				and userOA = #{userOA}
+			</if>
+			<if test="phone != null and phone !='' ">
+				and phone = #{phone}
+			</if>
+		</where>
+  	</select>
+
+	<!-- 查询密码 -->
+	<select id="findpasswd" parameterType="int" resultType="string">
+		select passWord from user where userNum = #{userNum}
+	</select>
+
+	<select id="selectByPage" parameterType="User" resultType="User">
+		select * from user
+		<where>
+			<if test="roleName != null and roleName !='' ">
+				and roleName = #{roleName}
+			</if>
+		</where>
+	</select>
+  	
+  	<!-- 添加用户信息 -->
+ 	<insert id="addUser" parameterType="zygh.yfb.wxy.vo.User" >
+  		insert into user(userId,userName,userOA,roleName,secName,secId,phone,userRemarks,passWord) 
+  		values(#{userId},#{userName},#{userOA},#{roleName},#{secName},#{secId},#{phone},#{userRemarks},#{passWord})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除用户信息 -->
+  	<delete id="deleteUser" parameterType="int">
+  		delete from user where userNum in
+  		<foreach item="userNums" collection="array" open="(" separator="," close=")">
+  			#{userNums}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 初始化密码为六个八 -->
+  	<update id="initPassword" parameterType="int">
+  		update user set passWord = 'd1ae5d00c4122289fb861d51e4fbd0ee' where userNum in
+  		<foreach item="userNums" collection="array" open="(" separator="," close=")">
+  			#{userNums}
+  		</foreach>
+  	</update>
+  
+  	<!-- 修改用户信息 --> 	
+  	<update id="updateUser" parameterType="zygh.yfb.wxy.vo.User">
+    	update user
+    	set
+      	userId = #{userId},
+      	userName = #{userName},
+      	userOA = #{userOA},
+      	roleName = #{roleName},
+      	secId = #{secId},
+      	secName = #{secName},
+      	phone = #{phone},
+      	userRemarks = #{userRemarks}
+      	where userNum = #{userNum} 
+	</update>
+	
+	<!-- 修改密码 -->
+  	<update id="updPassWord" parameterType="zygh.yfb.wxy.vo.User">
+    	update user
+    	set passWord = #{passWord}
+      	where userNum = #{userNum}
+	</update>
+
+    <!-- 登陆 -->
+	<select id="login" parameterType="User" resultType="User" >
+  		select * from user
+		<where>
+			<if test="userOA != null and userOA !='' ">
+				and (userOA = #{userOA} or phone = #{phone})
+			</if>
+			and passWord = #{passWord}
+		</where>
+	</select >	  
+	      
+	<select  id="secUAndR" parameterType="User"  resultType="java.util.Map">
+   		SELECT  * FROM USER u JOIN role r ON  u.roleName=r.roleName WHERE (u.userOA = #{userOA}  or u.phone= #{phone}) and u.passWord = #{passWord}
+	</select>
+</mapper>

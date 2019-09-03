@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.RoleMapper" >
+	
+	<!--角色sql片段 -->
+	<sql id="query_role_where">
+		<if test="roleNum != null and roleNum !=''">
+			or roleNum = #{roleNum}
+		</if>
+		<if test="roleName != null and roleName !='' ">
+			or roleName like "%"#{roleName}"%"
+		</if>
+		<if test="roleMs != null and roleMs !='' ">
+			or roleMs like "%"#{roleMs}"%"
+		</if>
+		<if test="roleRemarks != null and roleRemarks !='' ">
+			or roleRemarks like "%"#{roleRemarks}"%"
+		</if>
+	</sql>
+	
+
+	<!-- 查询角色信息 -->
+   <select id="findRole" parameterType="zygh.yfb.wxy.vo.Role" resultType="zygh.yfb.wxy.vo.Role">
+	    select * from role
+		<where>
+			<if test="roleNum != null and roleNum !=''">
+				and roleNum = #{roleNum}
+			</if>
+			<if test="roleName != null and roleName !='' ">
+				and roleName like "%"#{roleName}"%"
+			</if>
+			<if test="roleMs != null and roleMs !='' ">
+				and roleMs like "%"#{roleMs}"%"
+			</if>
+			<if test="roleRemarks != null and roleRemarks !='' ">
+				and roleRemarks like "%"#{roleRemarks}"%"
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加角色信息 -->
+ 	<insert id="addRole" parameterType="zygh.yfb.wxy.vo.Role">
+  		insert into role(roleName,roleMs,roleRemarks,permissions) 
+  		values(#{roleName},#{roleMs},#{roleRemarks},#{permissions})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除角色信息 -->
+  	<delete id="deleteRole" parameterType="int">
+  		delete from role where roleNum in
+  		<foreach item="roleNums" collection="array" open="(" separator="," close=")">
+  			#{roleNums}
+  		</foreach>
+  	</delete> 
+  
+  	<!-- 修改角色信息 --> 	
+  	<update id="updateRole" parameterType="zygh.yfb.wxy.vo.Role">
+    	update role
+    	set
+      	roleName = #{roleName},
+      	roleMs = #{roleMs},
+      	roleRemarks = #{roleRemarks},
+      	permissions = #{permissions}
+      	where roleNum = #{roleNum} 
+	</update>
+  
+  	 <select id="findRoleByNum" parameterType="int" resultType="zygh.yfb.wxy.vo.Role">
+  		select * from role where roleNum=#{roleNum}
+  	</select> 
+
+</mapper>

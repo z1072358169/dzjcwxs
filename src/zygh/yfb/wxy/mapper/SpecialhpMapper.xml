@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.SpecialhpMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findSpecialhp" resultType="zygh.yfb.wxy.vo.Specialhp">
+	    select HPHM from specialhp
+  	</select> 
+  	
+  	<!-- 根据车牌号码查询信息 -->
+   <select id="findSpecialhpByHp" parameterType="string" resultType="int">
+	    select count(*) as incount from specialhp where HPHM = #{HPHM}
+  	</select>
+  	
+  	  	<!-- 添加特殊车牌 -->
+  	<insert id="addHp" parameterType="zygh.yfb.wxy.vo.Specialhp">
+  		insert into specialhp(HPHM,gqDate,remarks) 
+  		values(#{HPHM},#{gqDate},#{remarks})
+  	</insert>
+  	
+	<!-- 查询信息 -->
+   <select id="findAll" parameterType="zygh.yfb.wxy.vo.Specialhp" resultType="zygh.yfb.wxy.vo.Specialhp">
+	    select * from specialhp
+		<where>
+			<if test="id != null and id !='' ">
+			and id = #{id}
+			</if>
+			<if test="HPHM != null and HPHM !='' ">
+			and HPHM = #{HPHM}
+			</if>
+			<if test="gqDate != null and gqDate !='' ">
+			and gqDate = #{gqDate}
+			</if>
+		</where>
+  	</select> 
+  	
+  	 <!-- 删除信息 -->
+  	<delete id="deleteSpecialhp" parameterType="int">
+  		delete from specialhp where id in
+  		<foreach item="ids" collection="array" open="(" separator="," close=")">
+  			#{ids}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateSpecialhp" parameterType="zygh.yfb.wxy.vo.Specialhp">
+    	update specialhp
+    	set
+      	HPHM = #{HPHM},
+      	gqDate = #{gqDate},
+      	remarks = #{remarks}
+      	where id = #{id} 
+	</update>
+  	
+	
+</mapper>

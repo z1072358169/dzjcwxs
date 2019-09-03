@@ -1,0 +1,70 @@
+<section>
+	<div class="header">
+		<p>
+			<span>角色管理</span>
+			<button type="button" 
+				class="btn btn-success bar-h3-btn mr"  ng-click="selectsec()">
+				<em class="	glyphicon glyphicon-refresh"></em>刷新
+			</button>
+			<button type="button" class="btn btn-danger bar-h3-btn mr" ng-click="deleteone()"><em class="fa fa-trash fa-fw mr-sm"></em>删除角色</button>
+			<button type="button" class="btn btn-primary bar-h3-btn mr" ng-click="selecteone()"><em class="fa fa-pencil fa-fw mr-sm"></em>修改角色</button>
+			<a href="#/addRole"><button type="button" title="添加信息" id="toadd" class="btn btn-info bar-h3-btn mr"><em class="fa fa-plus fa-fw mr-sm"></em>添加角色</button></a>
+		</p>
+	</div>
+
+	<div class="main">
+		<div class="select">共{{zongshu}}条</div>
+		<div class="col-lg-12">
+			<div class="col-lg-2"><input type="text" class="form-control" name="source2" value="" placeholder="关键字查询" required="" ng-model="roless"></div>
+			<div class="col-lg-1"><button type="submit" title="提交"
+					class="btn btn-success bar-h3-btn mr" ng-click="selectsec()">查询</button></div>
+					<br />
+		</div><br />
+		<table class="table table-striped table-hover" style="margin-bottom:0">
+			<thead>
+				<tr>
+					<td><input type="checkbox" ng-model="select_all" ng-click="selectAll()"/></td>
+					<td>角色名称</td>
+					<td>角色权限</td>
+					<td>备注</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in items" ng-dblclick="selecttwo(x)">
+					<td><input type="checkbox" ng-model="x.checked" ng-click="selectOne()"/></td>
+					<td>{{x.roleName}}</td>
+					<td>
+						<span ng-show="x.permissions.qbsj">全部数据&nbsp;</span>
+						<span ng-show="x.permissions.wfcs">违法初筛&nbsp;</span>
+						<span ng-show="x.permissions.wfcx">违法查询&nbsp;</span>
+						<span ng-show="x.permissions.sxtj">筛选统计&nbsp;</span>
+						<span ng-show="x.permissions.fpsj">分配数据&nbsp;</span>
+						<span ng-show="x.permissions.sjgl">数据管理&nbsp;</span>
+						<span ng-show="x.permissions.yhgl">用户管理&nbsp;</span>
+						<span ng-show="x.permissions.bmgl">部门管理&nbsp;</span>
+						<span ng-show="x.permissions.jsgl">角色管理&nbsp;</span>
+					</td>
+					<td>{{x.roleRemarks}}</td>
+				</tr>
+				
+			</tbody>
+		</table>
+		<nav class="text-right">
+			<ul class="pagination">
+					<li>
+						<a ng-click="Previous()">
+							<span>上一页</span>
+						</a>
+					</li>
+					<li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}">
+						<a ng-click="selectPage(page)">{{ page }}</a>
+					</li>
+					<li>
+						<a ng-click="Next()">
+							<span>下一页</span>
+						</a>
+					</li>
+				</ul>
+		</nav>
+	</div>
+</section>

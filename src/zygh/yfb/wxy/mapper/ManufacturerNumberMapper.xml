@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.ManufacturerNumberMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findManufacturerNumber" parameterType="zygh.yfb.wxy.vo.ManufacturerNumber" resultType="zygh.yfb.wxy.vo.ManufacturerNumber">
+	    select * from manufacturer_number
+		<where>
+			<if test="sysId != null and sysId !='' ">
+			and sysId = #{sysId}
+			</if>
+			<if test="manufacturerId != null and manufacturerId !='' ">
+			and manufacturerId = #{manufacturerId}
+			</if>
+			<if test="mExplain != null and mExplain !='' ">
+			and mExplain = #{mExplain}
+			</if>
+		</where>
+  	</select>
+  	
+  	<!-- 按照厂商代码查询厂商名字 -->
+  	<select id="findSM" parameterType="string" resultType="zygh.yfb.wxy.vo.ManufacturerNumber">
+  		select * from manufacturer_number where manufacturerId = #{manufacturerId}
+  	</select>
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addManufacturerNumber" parameterType="zygh.yfb.wxy.vo.ManufacturerNumber" >
+  		insert into manufacturer_number(manufacturerId,mExplain,mExplain2) 
+  		values(#{manufacturerId},#{mExplain}，#{mExplain2})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deleteManufacturerNumber" parameterType="int">
+  		delete from manufacturer_number where sysId in
+  		<foreach item="sysIds" collection="array" open="(" separator="," close=")">
+  			#{sysIds}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateManufacturerNumber" parameterType="zygh.yfb.wxy.vo.ManufacturerNumber">
+    	update manufacturer_number
+    	set
+      	manufacturerId = #{manufacturerId},
+      	mExplain = #{mExplain},
+      	mExplain2 = #{mExplain2}
+      	where sysId = #{sysId} 
+	</update>
+	
+</mapper>

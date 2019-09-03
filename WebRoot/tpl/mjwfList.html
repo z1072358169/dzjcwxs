@@ -1,0 +1,304 @@
+<section>
+	<div class="header">
+		<p>
+			<span>初筛复核</span>
+		</p>
+	</div>
+	<div class="main">
+		<!--查询参数-->
+		<!--第一排-->
+		<div class="col-md-12 column form-horizontal topwsnum">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">号牌号码：</label>
+					<div class="col-lg-6">
+						<div class="input-group">
+						     <span class="input-group-btn">
+						          <select class="btn btn-default" ng-model="mjwfList.data_cc" style="height: 34px;" ng-change="chaxunzts2()">
+						          	<option value="">全部</option>
+						            <option value="豫">豫</option>
+									<option value="京">京</option>
+									<option value="津">津</option>
+									<option value="沪">沪</option>
+									<option value="渝">渝</option>
+									<option value="蒙">蒙</option>
+									<option value="新">新</option>
+									<option value="藏">藏</option>
+									<option value="宁">宁</option>
+									<option value="桂">桂</option>
+									<option value="港">港</option>
+									<option value="澳">澳</option>
+									<option value="黑">黑</option>
+									<option value="吉">吉</option>
+									<option value="辽">辽</option>
+									<option value="晋">晋</option>
+									<option value="冀">冀</option>
+									<option value="青">青</option>
+									<option value="鲁">鲁</option>
+									<option value="苏">苏</option>
+									<option value="皖">皖</option>
+									<option value="浙">浙</option>
+									<option value="闽">闽</option>
+									<option value="赣">赣</option>
+									<option value="湘">湘</option>
+									<option value="鄂">鄂</option>
+									<option value="粤">粤</option>
+									<option value="琼">琼</option>
+									<option value="甘">甘</option>
+									<option value="陕">陕</option>
+									<option value="黔">黔</option>
+									<option value="云">云</option>
+									<option value="川">川</option>
+						          </select>
+						     </span>
+						     <input type="text" id="hphm" class="form-control" ng-model="mjwfList.data_c" ng-change="chaxunzts2()">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">开始时间：</label>
+					<div class="col-lg-6">
+						<input name="start_time" type="text" id="starttime" class="form-control" autocomplete="off" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 00:00:00',onpicked:angular.element(this).scope().chaxunzts3()})">
+						<!-- <input type="text" id="starttime" class="form-control"><i class="fa fa-calendar tubiao"></i> -->
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">结束时间：</label>
+					<div class="col-lg-6">
+						<input name="start_time" type="text" id="endtime" class="form-control" autocomplete="off" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 23:59:59',onpicked:angular.element(this).scope().chaxunzts3()})">
+						<!-- <input type="text" id="endtime" class="form-control"><i class="fa fa-calendar tubiao"></i> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--第二排-->
+		<div class="col-md-12 column form-horizontal">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">违法地点：</label>
+					<div class="col-lg-6">
+						<select id="exampledata1" class="selectpicker" data-width="100%" data-live-search="true" onchange="angular.element(this).scope().chaxunzts3()"></select>
+						<!-- <input type="text"  class="form-control" ng-model="wfplace"> -->
+						<a id="modal-781151" href="/#modal-container-781151" role="button" data-toggle="modal" ng-click="wfddcx(1)">
+							<i class="fa fa-th-large" style="position: absolute;right: -10px;top: 10px;"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">违法代码：</label>
+					<div class="col-lg-6">
+						<select class="form-control" id="wfxw" ng-model="mjwfList.data_d" ng-change="chaxunzts2()">
+							<option value="">全部</option>
+							<option value="{{x.illegal_number}}" ng-repeat="x in params.illegalBehavior">{{x.illegal_number}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">厂商名字：</label>
+					<div class="col-lg-6">
+						<select class="form-control" ng-model="mjwfList.data_f" ng-change="chaxunzts2()">
+							<option value="">全部</option>
+							<option value="科达">科达</option>
+							<option value="海康">海康</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 column form-horizontal">
+			<!-- <div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">状态：</label>
+					<div class="col-lg-6">
+						<select  id="MJSCZT" class="form-control" ng-model="data_g">
+							<option value="0">全部</option>
+							<option value="1">未审核</option>
+							<option value="2">已通过</option>
+							<option value="3">已作废</option>
+						</select>
+					</div>
+				</div>
+			</div> -->
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">号牌种类：</label>
+					<div class="col-lg-6">
+						<select  id="HPZL" class="form-control" ng-model="mjwfList.data_a" ng-change="chaxunzts2()">
+							<option value="">全部</option>
+							<option value="{{x.licensePlateType}}" ng-repeat="x in params.PlateType">{{x.pExplain}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">待筛选数：</label>
+					<div class="col-lg-6">
+						<input type="text" class="form-control" ng-model="pageSizea" readonly="readonly">
+					</div>
+					<!-- <button type="button" class="btn btn-primary bar-h3-btn mr" ng-click="chaxunztsa()">查询</button> -->
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">提取条数：</label>
+					<div class="col-lg-6">
+						<select class="form-control" ng-model="mjwfList.pagesizefp" ng-change="panduanshuzi()">
+							<option value="10">10</option>
+							<option value="20">20</option>
+							<option value="50">50</option>
+						</select>
+						<!--<input type="text" list="browsers" class="form-control" ng-model="mjwfList.pagesizefp" ng-change="panduanshuzi()">-->
+						<!--<datalist id="browsers">-->
+			                <!--<option value=10>-->
+			                <!--<option value=20>-->
+			                <!--<option value=50>-->
+			                <!--<option value=100>-->
+			            <!--</datalist>-->
+					</div>
+				</div>
+			</div>
+		</div>	
+		<div class="col-md-12 column form-horizontal">
+			<div class="col-md-12">
+				<div class="form-group">
+						<!-- <button type="button" class="btn btn-secondary bar-h3-btn mr" ng-click="xiayibu()">{{liebiao}}</button> -->
+						<!-- <button type="button" class="btn btn-danger bar-h3-btn mr" ng-click="delIllegal()">作废</button> -->
+						<button type="button" class="btn btn-success bar-h3-btn mr" ng-click="shifangdata()">释放</button>
+						<button type="button" class="btn btn-primary bar-h3-btn mr" ng-click="chaxunzts()">查询</button>
+						<button type="button" class="btn btn-primary bar-h3-btn mr" ng-click="fenpeidata()">提取</button>
+				</div>
+			</div>
+		</div>
+		<!--查询参数结束-->
+		<!--查询结果图片列表-->
+		<!-- <div class="col-md-12" ng-show="tupian">
+			<div class="photolist" ng-repeat="x in items">
+				<div style="width:100%;height:260px;" ng-dblclick="xqshaixuan(x)">
+					<div style="height: 260px;width: 100%;float: left">
+						<img id="photo4" ng-src="{{x.URL1}}" err-src="img/404.jpg" style="max-width:100%;max-height:100%;width: 100%;height: 260px;" />
+					</div>
+					<div style="height: 130px;width: 50%;float: left">
+						<img id="photo3" ng-src="{{x.URL2}}" err-src="img/404.jpg" style="max-width:100%;max-height:100%;width: 100%;height: 130px;" />
+					</div>
+					<div style="height: 130px;width: 100%;float: left">
+						<img id="photo2" ng-src="{{x.URL3}}" err-src="img/404.jpg" style="max-width:100%;max-height:100%;width: 100%;height: 130px;" />
+					</div>
+				</div>
+				<div style="width:100%;height:30px;margin-top: 5px;margin-bottom: 5px;background-color: #e1e1e1;">
+					<table style="width:100%;height:100%;">
+						<tr>
+							<td style="width: 50%;">
+								<div style="width: 60%;height:25px;background-color: #2a2fcb;color:#ffffff;">
+									{{x.HPHM}}
+								</div>
+							</td>
+							<td style="width: 20%;color: #cb0206">
+								<span class="glyphicon glyphicon-remove-sign" ng-click="remove(x)"></span>
+							</td>
+							<td style="width: 20%;color: #00be0b">
+								<span class="glyphicon glyphicon-ok-sign" ng-click="ok(x)"></span>
+							</td>
+							<td style="width: 10%;">
+								<input type="checkbox" ng-model="x.checked"
+									   ng-click="selectOne()" />
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div> -->
+		<!--查询结果详情列表-->
+		<div class="col-md-12" ng-show="xiangqing" style="margin-top: 5px">
+			<div style="position: absolute;top: -22px;font-weight: 900;">待筛选数{{pageSizea}}条，已提取总数{{tongjisladata1.allwsx}}条，正在筛选数{{tongjisladata2.screening}}条，您今天通过{{tongjisladata1.pass}}条，作废{{tongjisladata1.tovoid}}条。</div>
+			<table class="table table-condensed table-bordered table-hover" style="text-align: center;">
+				<tr class="infohs">
+					<!-- <td><input type="checkbox" ng-model="select_all"
+							   ng-click="selectAll()" /></td> -->
+					<td>号牌号码</td>
+					<td>违法地点</td>
+					<td>违法代码</td>
+					<td>时间</td>
+					<!--<td>厂商名字</td>-->
+					<td>状态</td>
+					<td>审核人</td>
+					<!-- <td style="width: 10%;">操作</td> -->
+				</tr>
+				<tr ng-repeat="x in items" ng-dblclick="xqshaixuan(x)">
+					<!-- <td><input type="checkbox" ng-model="x.checked"
+							   ng-click="selectOne()" /></td> -->
+					<td><a ng-click="xqshaixuan(x)">{{x.HPHM}}</a></td>
+					<td>{{x.CJDZ}}</td>
+					<td>{{x.WFDM}}</td>
+					<td>{{x.CJSJ}}</td>
+					<!--<td>{{x.CSMZ}}</td>-->
+					<td>{{x.MJSCZT | replacepur}}</td>
+					<td>{{x.mjuserName}}</td>
+ 					<!--<td>
+						<span style="color: #cb0206;width: 30%;" class="glyphicon glyphicon-remove-sign" ng-click="remove(x,'2')"></span>
+						<span style="color: #00be0b;width: 30%;" class="glyphicon glyphicon-ok-sign" ng-click="ok(x,'1')"></span>
+					</td> -->
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-12">
+			<nav class="text-right">
+				<ul class="pagination">
+					<li><a ng-click="Previous()"> <span>上一页</span> </a>
+					</li>
+					<li ng-repeat="page in pageList"
+						ng-class="{active: isActivePage(page)}"><a
+							ng-click="selectPage(page)">{{ page }}</a>
+					</li>
+					<li><a ng-click="Next()"> <span>下一页</span> </a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</section>
+<div class="modal fade" id="modal-container-781151" role="dialog"
+	 aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width: 740px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">违法地点详细信息</h4>
+			</div>
+			<div class="modal-body">
+				<div style="width:300px;float:left;margin-bottom: 10px;margin-right: 5px;">
+					<input type="text" class="form-control" ng-model="wfdda">
+				</div>
+				<div style="width:200px;float:left;">
+					<button type="button" class="btn btn-primary" ng-click="wfddcx(2)">查询</button>
+				</div>
+				<div style="width:100%;height:400px;overflow:auto;">
+					<table class="table table-condensed table-bordered table-hover" style="text-align: center;">
+						<tr class="infohs">
+							<td style="width: 15%;">序号</td>
+							<td style="width: 60%;">违法地点名称</td>
+							<td style="width: 25%;">待筛选数</td>
+						</tr>
+						<tr ng-repeat="x in itemswf" ng-dblclick="illegalityPlace(x)">
+							<td>{{x.xuhao}}</td>
+							<td>{{x.CJDZ}}</td>
+							<td>{{x.addcount}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" id="guanbi">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

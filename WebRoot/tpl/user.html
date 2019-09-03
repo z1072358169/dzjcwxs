@@ -1,0 +1,65 @@
+<section>
+	<div class="header">
+		<p>
+			<span>用户管理</span>
+
+			<button type="button" class="btn btn-success bar-h3-btn mr"
+				ng-click="selectUser()">
+				<em class="	glyphicon glyphicon-refresh"></em>刷新
+			</button>
+			<button type="button" class="btn btn-danger bar-h3-btn mr"
+				ng-click="deleteone()">
+				<em class="fa fa-trash fa-fw mr-sm"></em>删除用户
+			</button>
+			<button type="button" class="btn btn-primary bar-h3-btn mr"
+				ng-click="selecteone()">
+				<em class="fa fa-pencil fa-fw mr-sm"></em>修改用户
+			</button>
+			<a href="#/addUser"><button type="button" title="添加信息"
+					class="btn btn-info bar-h3-btn mr">
+					<em class="fa fa-plus fa-fw mr-sm"></em>添加用户
+				</button>
+			</a>
+		</p>
+	</div>
+
+	<div class="col-lg-12 main2">
+		<div class="select">共{{zongshu}}条</div>
+		<br />
+		<table class="table table-striped table-hover" style="margin-bottom:0">
+			<thead>
+				<tr>
+					<td><input type="checkbox" ng-model="select_all"
+						ng-click="selectAll()" />
+					</td>
+					<td>编号</td>
+					<td>部门</td>
+					<td>姓名</td>
+					<td>角色</td>
+					<td>电话</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in items" ng-dblclick="selecttwo(x)">
+					<td><input type="checkbox" ng-model="x.checked"
+						ng-click="selectOne()" />
+					</td>
+					<td>{{x.userNum}}</td>
+					<td>{{x.secName}}</td>
+					<td>{{x.userName}}</td>
+					<td>{{x.roleName}}</td>
+					<td>{{x.phone}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<nav class="text-right">
+			<ul class="pagination">
+				<li><a ng-click="Previous()"> <span>上一页</span> </a></li>
+				<li ng-repeat="page in pageList"
+					ng-class="{active: isActivePage(page)}"><a
+					ng-click="selectPage(page)">{{ page }}</a></li>
+				<li><a ng-click="Next()"> <span>下一页</span> </a></li>
+			</ul>
+		</nav>
+	</div>
+</section>

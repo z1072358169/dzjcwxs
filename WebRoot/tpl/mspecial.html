@@ -1,0 +1,217 @@
+<section>
+	<div class="header">
+		<p>
+			<span>复核数据查询</span>
+		</p>
+	</div>
+	<div class="main">
+		<!--查询参数-->
+		<!--第一排-->
+		<div class="col-md-12 column form-horizontal topwsnum">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">号牌种类：</label>
+					<div class="col-lg-6">
+						<select id="HPZLt" class="form-control" ng-model="data_a">
+							<option value="">全部</option>
+							<option value="{{x.licensePlateType}}" ng-repeat="x in params.PlateType">{{x.pExplain}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">筛选姓名：</label>
+					<div class="col-lg-6">
+						<select id="exampledata2" class="selectpicker" data-width="100%" data-live-search="true"></select>
+						<!-- <select class="form-control" ng-model="data_f">
+							<option value="">全部</option>
+							<option value="科达">科达</option>
+							<option value="海康">海康</option>
+						</select> -->
+					</div>
+					<!-- <label class="col-lg-4 control-label"></label>
+					<div class="col-lg-6">
+						<select class="form-control" ng-model="data_b">
+							<option value="">全部</option>
+							<option value="{{x.licensePlateColor}}" ng-repeat="x in params.PlateColor">{{x.pExplain}}</option>
+						</select>
+					</div> -->
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">号牌号码：</label>
+					<div class="col-lg-6">
+						<div class="input-group">
+						     <span class="input-group-btn">
+						          <select class="btn btn-default" id="hphm" ng-model="data_cc" style="  height: 34px;">
+						          	  <option value="">全部</option>
+						              <option value="豫">豫</option>
+									<option value="京">京</option>
+									<option value="津">津</option>
+									<option value="沪">沪</option>
+									<option value="渝">渝</option>
+									<option value="蒙">蒙</option>
+									<option value="新">新</option>
+									<option value="藏">藏</option>
+									<option value="宁">宁</option>
+									<option value="桂">桂</option>
+									<option value="港">港</option>
+									<option value="澳">澳</option>
+									<option value="黑">黑</option>
+									<option value="吉">吉</option>
+									<option value="辽">辽</option>
+									<option value="晋">晋</option>
+									<option value="冀">冀</option>
+									<option value="青">青</option>
+									<option value="鲁">鲁</option>
+									<option value="苏">苏</option>
+									<option value="皖">皖</option>
+									<option value="浙">浙</option>
+									<option value="闽">闽</option>
+									<option value="赣">赣</option>
+									<option value="湘">湘</option>
+									<option value="鄂">鄂</option>
+									<option value="粤">粤</option>
+									<option value="琼">琼</option>
+									<option value="甘">甘</option>
+									<option value="陕">陕</option>
+									<option value="黔">黔</option>
+									<option value="云">云</option>
+									<option value="川">川</option>
+						          </select>
+						     </span>
+						     <input type="text" id="hphm2" class="form-control" ng-model="data_c">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--第二排-->
+		<div class="col-md-12 column form-horizontal">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">违法地点：</label>
+					<div class="col-lg-6">
+						<select id="exampledata1" class="selectpicker" data-width="100%" data-live-search="true"></select>
+						<!-- <input type="text"  class="form-control" ng-model="wfplace">
+						<a id="modal-781148" href="/#modal-container-781148" role="button" data-toggle="modal">
+							<i class="fa fa-th-large tubiao"></i>
+						</a> -->
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">开始时间：</label>
+					<div class="col-lg-6">
+						<input name="start_time" type="text" id="starttime" autocomplete="off" class="form-control" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 00:00:00'})">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">结束时间：</label>
+					<div class="col-lg-6">
+						<input name="start_time" type="text" id="endtime" autocomplete="off" class="form-control" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 23:59:59'})">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--第三排-->
+		<div class="col-md-12 column form-horizontal">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">违法行为：</label>
+					<div class="col-lg-6">
+						<select class="form-control" id="wfxw" ng-model="data_d">
+							<option value="">全部</option>
+							<option value="{{x.illegal_number}}" ng-repeat="x in params.illegalBehavior">{{x.illegal_number}}-{{x.illegal_explanation}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">状态：</label>
+					<div class="col-lg-6">
+						<select class="form-control" id="MJSCZT" ng-model="data_e">
+							<option value=0>全部</option>
+							<option value=1>未审核</option>
+							<option value=2>已通过</option>
+							<option value=3>已作废</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">抽取条数：</label>
+					<div class="col-lg-6">
+						<select class="form-control" ng-model="cqzs" ng-change="chouqutiaoshu()">
+								<option value="200">200</option>
+								<option value="100">100</option>
+								<option value="50">50</option>
+								<option value="30">30</option>
+								<option value="20">20</option>
+								<option value="10">10</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<button type="button" title="取消" class="btn btn-primary bar-h3-btn mr" ng-click="chaxunzts()">查询</button>
+		</div>
+		<!--查询参数结束-->
+		<!--查询结果详情列表-->
+		<div class="col-md-12" style="margin-top: 5px">
+			<label class="col-lg-2" style="text-align: left;">共{{pageSize}}条</label>
+			<table class="table table-condensed table-bordered table-hover" style="text-align: center;">
+				<tr class="info">
+					<td>号牌号码</td>
+					<td>号牌种类</td>
+					<!--<td>厂商名字</td>-->
+					<td>违法地点</td>
+					<td>违法行为</td>
+<!-- 					<td style="width: 10%;">车速</td> -->
+					<td>时间</td>
+					<td>状态</td>
+					<td>筛选人</td>
+				</tr>
+				<tr ng-repeat="x in items" ng-dblclick="xqshaixuan(x)">
+					<td>{{x.HPHM}}</td>
+					<td>{{x.pExplain}}</td>
+					<!--<td>{{x.CSMZ}}</td>-->
+					<td>{{x.CJDZ}}</td>
+					<td>{{x.WFDM}}</td>
+					<td>{{x.CJSJ}}</td>
+					<td>{{x.MJSCZT}}</td>
+					<td>{{x.mjuserName}}</td>
+<!-- 				<td>{{x.licensePlateNum}}</td>
+					<td>{{x.pExplain}}</td>
+					<td>{{x.collectionAddress}}</td>
+					<td>{{x.dataSources}}</td>
+					<td>{{x.vehicleSpeed}}</td>
+					<td>{{x.data_S_U_T}}</td>
+					<td>{{x.toExamine}}</td> -->
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-12">
+			<nav class="text-right">
+				<ul class="pagination">
+					<li><a ng-click="Previous()"> <span>上一页</span> </a>
+					</li>
+					<li ng-repeat="page in pageList"
+						ng-class="{active: isActivePage(page)}"><a
+							ng-click="selectPage(page)">{{ page }}</a>
+					</li>
+					<li><a ng-click="Next()"> <span>下一页</span> </a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,45 @@
+<section>
+	<div class="header">
+		<p>
+			<span>路口分析</span>
+		</p>
+	</div>
+	<div class="main">
+		<!--查询结果详情列表-->
+		<div class="col-md-12" style="margin-top: 5px">
+			<label class="col-lg-2" style="text-align: left;">共{{iteamlist.total}}条</label>
+			<table class="table table-condensed table-bordered table-hover" id="hzStatistical" style="text-align: center;">
+				<tr class="info">
+					<td>地点</td>
+					<td>前天抓拍数</td>
+					<td>昨天抓拍数</td>
+					<td>趋势</td>
+					<td>趋势比</td>
+					<td>状态</td>
+				</tr>
+				<tr ng-repeat="x in iteamlist.data">
+					<td>{{x.lukouname}}</td>
+					<td>{{x.qian}}</td>
+					<td>{{x.zuo}}</td>
+					<td style="color: {{x.color}}"><img ng-src="{{x.myVar}}">{{x.cha}}</td>
+					<td style="color: {{x.color}}"><img ng-src="{{x.myVar}}">{{x.baifen}}</td>
+					<td style="color: {{x.colory}}">{{x.lukoustatus | replacelukoustatus}}</td>
+				</tr>
+			</table>
+		</div>
+		<!-- <div class="col-md-12">
+			<nav class="text-right">
+				<ul class="pagination">
+					<li><a ng-click="Previous()"> <span>上一页</span> </a>
+					</li>
+					<li ng-repeat="page in pageList"
+						ng-class="{active: isActivePage(page)}"><a
+							ng-click="selectPage(page)">{{ page }}</a>
+					</li>
+					<li><a ng-click="Next()"> <span>下一页</span> </a>
+					</li>
+				</ul>
+			</nav>
+		</div> -->
+	</div>
+</section>

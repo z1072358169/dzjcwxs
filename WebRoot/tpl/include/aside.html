@@ -1,0 +1,129 @@
+<aside ng-controller="asideCtrl">
+	<div id="aside">
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingFive" ng-show="person.permissions.wfzpa">
+					<p class="panel-title">
+						<a class="collapsed" data-toggle="collapse" href="/#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+							<em class="fa fa-camera"></em> 违法抓拍
+						</a>
+					</p>
+				</div>
+				<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
+					<div class="panel-body">
+						<ul class="list-unstyled">
+							<li ng-show="person.permissions.wfcs">
+								<em class="glyphicon glyphicon-ok"></em>
+								<a href="#/wfList">违法初筛</a>
+							</li>
+							<li ng-show="person.permissions.wfcx">
+								<em class="fa fa-search"></em>
+								<a href="#/special">违法数据查询</a>
+							</li>
+							<li ng-show="person.permissions.sxtj">
+								<em class="fa fa-search"></em>
+								<a href="#/wfStatistics">初筛统计</a>
+							</li>
+
+							<!--<li ng-show="person.permissions.fpsx">-->
+								<!--<em class="glyphicon glyphicon-share"></em>-->
+								<!--<a href="#/ScrapScreen">废片筛选</a>-->
+							<!--</li>-->
+							<!--<li ng-show="person.permissions.fpcx">-->
+								<!--<em class="glyphicon glyphicon-eye-open"></em>-->
+								<!--<a href="#/ScrapQuery">废片筛选查询</a>-->
+							<!--</li>-->
+							<!--<li ng-show="person.permissions.fptj">-->
+								<!--<em class="glyphicon glyphicon-tasks"></em>-->
+								<!--<a href="#/ScrapStatistics">废片筛选统计</a>-->
+							<!--</li>-->
+
+							<li ng-show="person.permissions.fpsx">
+								<em class="glyphicon glyphicon-share"></em>
+								<a href="#/ScrapScreen">废片筛选</a>
+							</li>
+							<li ng-show="person.permissions.fpsxcx">
+								<em class="glyphicon glyphicon-eye-open"></em>
+								<a href="#/ScrapQuery">废片筛选查询</a>
+							</li>
+							<li ng-show="person.permissions.fpsxtj">
+								<em class="glyphicon glyphicon-tasks"></em>
+								<a href="#/ScrapStatistics">废片筛选统计</a>
+							</li>
+							<li ng-show="person.permissions.lksjtj">
+								<em class="fa fa-search"></em>
+								<a href="#/RoadStatistical">路口数据统计</a>
+							</li>
+							<li ng-show="person.permissions.lkhztj">
+								<em class="fa fa-search"></em>
+								<a href="#/hzStatistical">路口汇总统计</a>
+							</li>
+							<li ng-show="person.permissions.lkhzbb">
+								<em class="fa fa-search"></em>
+								<a href="#/hzbbStatistical">路口数据报表</a>
+							</li>
+							<li ng-show="person.permissions.mwfcs">
+								<em class="glyphicon glyphicon-ok"></em>
+								<a href="#/mjwfList">初筛复核</a>
+							</li>
+							<li ng-show="person.permissions.mwfcx">
+								<em class="fa fa-search"></em>
+								<a href="#/mspecial">复核查询</a>
+							</li>
+							<li ng-show="person.permissions.msxtj">
+								<em class="fa fa-search"></em>
+								<a href="#/mjwfStatistics">复核统计</a>
+							</li>
+							<li ng-show="person.permissions.lkfxyj">
+								<em class="glyphicon glyphicon-random"></em>
+								<a href="#/EarlyWarning">路口分析</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="panel-heading" role="tab" id="headingFive" ng-show="person.permissions.xtgla">
+					<p class="panel-title">
+						<a class="collapsed" data-toggle="collapse" href="/#collapseFivea" aria-expanded="false" aria-controls="collapseFive">
+							<em class="fa fa-cog"></em>&nbsp;系统管理
+						</a>
+					</p>
+				</div>
+				<div id="collapseFivea" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
+					<div class="panel-body">
+						<ul class="list-unstyled">
+							<!-- <li ng-show="person.permissions.fpsj">
+								<em class="glyphicon glyphicon-th"></em>
+								<a href="#/datafenpei">提取数据</a>
+							</li> -->
+							<li ng-show="person.permissions.sjgl">
+								<em class="glyphicon glyphicon-tree-conifer"></em>
+								<a href="#/dataManagement">基础数据</a>
+							</li>
+							<li ng-show="person.permissions.point">
+								<em class="glyphicon glyphicon-road"></em>
+								<a href="#/PointManagement">点位管理</a>
+							</li>
+							<li ng-show="person.permissions.yhgl">
+								<em class="glyphicon glyphicon-user"></em>
+								<a href="#/User">用户管理</a>
+							</li>
+							<li ng-show="person.permissions.bmgl">
+								<em class="glyphicon glyphicon-tasks"></em>
+								<a href="#/sec">部门管理</a>
+							</li>
+							<li ng-show="person.permissions.jsgl">
+								<em class="glyphicon glyphicon-filter"></em>
+								<a href="#/Role">角色管理</a>
+							</li>
+							<!-- <li>
+								<em class="fa fa-comment"></em>
+								<a href="#/Inform">通知管理</a>
+							</li> -->
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</aside>

@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<title>郑州市交巡警支队违法审核平台</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/supersized.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/angular1.5.min.js"></script>
+<script src="js/angular-route.js"></script>
+<script src="js/angular-cookie.min.js"></script>
+<script src="js/synwork.js"></script>
+</head>
+
+<body ng-app="synwork">
+		<div class="page-container" ng-controller="sdjaslkdwCtrl">
+		</div>
+</body>
+<script type="text/javascript">
+    // JS实现选项卡切换
+    app.controller('sdjaslkdwCtrl', function($scope, $rootScope, $http, $cookieStore) {
+        var abb = {
+            "userNum" : 1,
+            "userName" : 1,
+            "userId" : 1,
+            "secId" : 1,
+            "secName" : 1,
+            "permissions" :{"wfzpa":true,"qbsj":true,"wfcs":true,"wfcx":true,"lksjtj":true,"lkhztj":true,"lkhzbb":true,"sxtj":true,"mwfcs":true,"mwfcx":true,"msxtj":true},
+            "roleName":1,
+            "passWord":1
+        };
+        $cookieStore.put("person",abb);//设置cookie
+        window.location = "synwork.html#/wfList";
+    });
+</script>
+</html>
+
+
+

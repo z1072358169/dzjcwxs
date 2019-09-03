@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.DirectionCodeMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findDirectionCode" parameterType="zygh.yfb.wxy.vo.DirectionCode" resultType="zygh.yfb.wxy.vo.DirectionCode">
+	    select * from direction_code
+		<where>
+			<if test="sysId != null and sysId !='' ">
+			and sysId = #{sysId}
+			</if>
+			<if test="directionNum != null and directionNum !='' ">
+			and directionNum = #{directionNum}
+			</if>
+			<if test="dExplain != null and dExplain !='' ">
+			and dExplain = #{dExplain}
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addDirectionCode" parameterType="zygh.yfb.wxy.vo.DirectionCode" >
+  		insert into direction_code(directionNum,dExplain) 
+  		values(#{directionNum},#{dExplain})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deleteDirectionCode" parameterType="int">
+  		delete from direction_code where sysId in
+  		<foreach item="sysIds" collection="array" open="(" separator="," close=")">
+  			#{sysIds}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateDirectionCode" parameterType="zygh.yfb.wxy.vo.DirectionCode">
+    	update direction_code
+    	set
+      	directionNum = #{directionNum},
+      	dExplain = #{dExplain}
+      	where sysId = #{sysId} 
+	</update>
+	
+</mapper>

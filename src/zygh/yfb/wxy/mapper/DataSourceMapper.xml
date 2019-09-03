@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.DataSourceMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findDataSource" parameterType="zygh.yfb.wxy.vo.DataSource" resultType="zygh.yfb.wxy.vo.DataSource">
+	    select * from data_source
+		<where>
+			<if test="sysId != null and sysId !='' ">
+			and sysId = #{sysId}
+			</if>
+			<if test="dataSources != null and dataSources !='' ">
+			and dataSources = #{dataSources}
+			</if>
+			<if test="dExplain != null and dExplain !='' ">
+			and dExplain = #{dExplain}
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addDataSource" parameterType="zygh.yfb.wxy.vo.DataSource" >
+  		insert into data_source(dataSources,dExplain) 
+  		values(#{dataSources},#{dExplain})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deleteDataSource" parameterType="int">
+  		delete from data_source where sysId in
+  		<foreach item="sysIds" collection="array" open="(" separator="," close=")">
+  			#{sysIds}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateDataSource" parameterType="zygh.yfb.wxy.vo.DataSource">
+    	update data_source
+    	set
+      	dataSources = #{dataSources},
+      	dExplain = #{dExplain}
+      	where sysId = #{sysId} 
+	</update>
+	
+</mapper>

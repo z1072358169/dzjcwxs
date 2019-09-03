@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.SbBhMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findSbBh" parameterType="zygh.yfb.wxy.vo.SbBh" resultType="zygh.yfb.wxy.vo.SbBh">
+	    select * from sbbh
+		<where>
+			<if test="sysid != null and sysid !='' ">
+			and sysid = #{sysid}
+			</if>
+			<if test="hxsbbh != null and hxsbbh !='' ">
+			and hxsbbh = #{hxsbbh}
+			</if>
+			<if test="area != null and area !='' ">
+			and area = #{area}
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 区域去重 -->
+   <select id="findarea" parameterType="zygh.yfb.wxy.vo.SbBh" resultType="zygh.yfb.wxy.vo.SbBh">
+	    select distinct area from sbbh
+  	</select> 
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addSbBh" parameterType="zygh.yfb.wxy.vo.SbBh" >
+  		insert into sbbh(kdsbbh,roadname,hxsbbh,area) 
+  		values(#{kdsbbh},#{roadname},#{hxsbbh},#{area})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deleteSbBh" parameterType="int">
+  		delete from sbbh where sysid in
+  		<foreach item="sysids" collection="array" open="(" separator="," close=")">
+  			#{sysids}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateSbBh" parameterType="zygh.yfb.wxy.vo.SbBh">
+    	update sbbh
+    	set
+      	kdsbbh = #{kdsbbh},
+      	roadname = #{roadname},
+      	hxsbbh = #{hxsbbh},
+      	area = #{area}
+      	where sysid = #{sysid} 
+	</update>
+	
+	<select id="selecthxsbbh" parameterType="string" resultType="zygh.yfb.wxy.vo.SbBh">
+		select * from sbbh where area = #{area}
+		<!-- <where>
+			<if test="licenseSbBh != null and licenseSbBh !='' ">
+			and licenseSbBh = #{licenseSbBh}
+			</if>
+		</where> -->
+	</select>
+	
+	<select id="selectparea" parameterType="string" resultType="zygh.yfb.wxy.vo.SbBh">
+		select * from sbbh where hxsbbh = #{hxsbbh}
+		<!-- <where>
+			<if test="pExplain != null and pExplain !='' ">
+			and pExplain = #{pExplain}
+			</if>
+		</where> -->
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,87 @@
+<section>
+	<div class="header">
+		<p>
+			<span>筛选统计</span>
+		</p>
+	</div>
+	<div class="main">
+		<!--查询参数-->
+		<!--第一排-->
+		<div class="col-md-12 column form-horizontal topwsnum">
+			<div class="col-md-2">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">用户：</label>
+					<div class="col-lg-8">
+						<select class="form-control" ng-model="data_user">
+							<option value="">全部</option>
+							<option value="{{x.userName}}" ng-repeat="x in user">{{x.userName}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-3 control-label">筛选时间：</label>
+					<div class="col-lg-4">
+						<input name="start_time" type="text" id="starttime" class="form-control" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 00:00:00'})">
+						<!-- <input type="text" id="starttime" class="form-control"><i class="fa fa-calendar tubiao"></i> -->
+					</div>
+					<div class="col-lg-1">
+					——
+					</div>
+					<div class="col-lg-4">
+						<input name="start_time" type="text" id="endtime" class="form-control" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'%y-%M-%d 23:59:59'})">
+						<!-- <input type="text" id="endtime" class="form-control"><i class="fa fa-calendar tubiao"></i> -->
+					</div>
+					
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="col-lg-4 control-label">违法行为：</label>
+					<div class="col-lg-8">
+						<select class="form-control" ng-model="data_d">
+							<option value="">全部</option>
+							<option value="{{x.illegal_number}}" ng-repeat="x in params.illegalBehavior">{{x.illegal_number}}-{{x.illegal_explanation}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<button type="button" class="btn btn-primary bar-h3-btn mr" ng-click="chaxunzts()">查询</button>
+			</div>	
+		</div>
+		<!--查询参数结束-->
+		<!--查询结果详情列表-->
+		<div class="col-md-12" style="margin-top: 5px">
+			<table class="table table-condensed table-bordered table-hover" style="text-align: center;">
+				<tr class="info">
+					<td>用户</td>
+					<td>作废</td>
+					<td>通过</td>
+					<td>全部</td>
+				</tr>
+				<tr ng-repeat="x in saixuandata">
+					<td>{{x.userName}}</td>
+					<td>{{x.tovoid}}</td>
+					<td>{{x.pass}}</td>
+					<td>{{x.allTotal}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-12">
+			<nav class="text-right">
+				<ul class="pagination">
+					<li><a ng-click="Previous()"> <span>上一页</span> </a>
+					</li>
+					<li ng-repeat="page in pageList"
+						ng-class="{active: isActivePage(page)}"><a
+							ng-click="selectPage(page)">{{ page }}</a>
+					</li>
+					<li><a ng-click="Next()"> <span>下一页</span> </a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</section>

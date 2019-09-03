@@ -1,0 +1,155 @@
+aside {
+	width: 170px;
+	height: 100%;
+	overflow: hidden;
+	border: 1px solid #ddd;
+	background: #fff;
+	position: fixed;
+}
+
+#aside {
+	width: 183px;
+	height: 100%;
+	border-top: 0;
+	padding-bottom: 76px;
+	/*position:fixed;*/
+	margin-top: 75px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.list-unstyled>li {
+	margin-bottom: 10px;
+	padding-left: 5px;
+}
+
+.list-unstyled>li em {
+	margin: 0 8px;
+}
+
+.panel-padding {
+	padding: 0;
+}
+
+section { /*  width:100%; */
+	margin-top: 75px;
+	text-align: center;
+	overflow: hidden;
+	/*position:relative;*/
+	/*border-top:1px solid transparent;*/
+}
+
+section>div.header { /* width:90%; */
+	height: 60px;
+	border-bottom: 1px solid #ddd;
+	line-height: 60px;
+	background: #fff;
+	padding-left: 15px;
+	padding-right: 40px;
+	font-size: 22px;
+	/*position:fixed;*/
+	text-align: left;
+}
+
+section>div.header button {
+	margin-top: 15px;
+}
+
+.main { /* width:86%; */
+	margin: 10px;
+	padding: 0 20px;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-top: 3px solid #ccc;
+	overflow-y:scroll;
+}
+
+.select {
+	float: right;
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+.input_01 {
+	float: right;
+	margin-top: 10px;
+}
+
+.main1 {
+	width: 13%;
+	margin: 10px 0px 10px 10px;
+	background: #fff;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	border: 1px solid #ccc;
+	border-top: 3px solid #ccc;
+	position: relative;
+}
+
+.main2 { /* width: 74%; */
+	margin: 10px;
+	padding: 0 20px;
+	background: #fff;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	border: 1px solid #ccc;
+	border-top: 3px solid #ccc;
+	overflow-y:scroll;
+}
+
+.btn-a {
+	padding: 3px 10px;
+}
+
+.file {
+	position: relative;
+	display: inline-block;
+	background: #D0EEFF;
+	border: 1px solid #99D3F5;
+	border-radius: 4px;
+	padding: 4px 12px;
+	overflow: hidden;
+	color: #1E88C7;
+	text-decoration: none;
+	text-indent: 0;
+	line-height: 20px;
+}
+
+.file input {
+	position: absolute;
+	font-size: 100px;
+	right: 0;
+	top: 0;
+	opacity: 0;
+}
+
+.file:hover {
+	background: #AADFFD;
+	border-color: #78C3F3;
+	color: #004974;
+	text-decoration: none;
+}
+
+.blogo {
+	margin: 20px 20px 0 0;
+	color: #FFFFFF;
+}
+
+.blogo:hover {
+	color: #6d6d6d;
+}
+
+.blogo2 {
+	color: #FFFFFF;
+}
+
+.blogo2:hover {
+	color: #6d6d6d;
+}
+.tubiao{
+	position: absolute;
+    right: 25px;
+    top: 10px;
+}

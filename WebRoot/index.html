@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<title>郑州市交巡警支队违法审核平台</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+<!-- CSS -->
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/supersized.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/supersized.3.2.7.min.js"></script>
+<script src="js/supersized-init.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script src="js/angular1.5.min.js"></script>
+<script src="js/angular-route.js"></script>
+<script src="js/angular-cookie.min.js"></script>
+<script src="js/synwork.js"></script>
+<style type="text/css">
+/* CSS样式制作 */  
+ *{padding:0px; margin:0px;}
+  a{ text-decoration:none; color:black;}
+  a:hover{text-decoration:none; color:#336699;}
+   #tab{width:345px; padding:5px;height:150px;margin:20px;}
+   #tab ul{list-style:none; display:;height:30px;line-height:30px;
+        border-bottom:2px #989BD5 solid;}
+   #tab ul li{  width: 148px;background:rgba(255, 255, 255, 0.35);cursor:pointer;float:left;
+    list-style:none height:29px; line-height:29px;padding:0px 10px;
+    margin:0px 1px; border:1px solid #7882C8; border-bottom:1px solid #88A0CC;}
+   #tab ul li.on{border-top:2px solid rgb(0, 42, 255); border-bottom:2px solid #A1A2DA;  background: rgba(255, 255, 255, 0.8);}
+   #tab div{height:225px;width:325px; line-height:24px;border-top:none;  
+            padding:1px; border:1px solid #336699;padding:10px;}
+   .hide{display:none;}
+</style>
+</head>
+
+<body ng-app="synwork">
+	<div style="margin: 12% 25% auto 25%;width: 50%;">
+		<div style="width: 520px;height: 70px;margin: 0 auto;padding-bottom:50px;">
+			<img src="/dzjc/img/timg.png" style="width: 70px;"/>
+			<h1 class="biaoti" style="line-height: 70px;padding:0;">
+	        		郑州市交巡警支队违法审核平台
+	        	</h1>
+		</div>
+		<div class="page-container" ng-controller="loginCtrl">
+			<h1>用户登录</h1>
+			<!-- <form>
+				<input type="text" name="username" class="username"
+					placeholder="请输入用户名" ng-model="name"> <input type="password"
+					name="password" class="password" placeholder="请输入密码" ng-model="pw">
+				<button type="submit" ng-click="getLoginInfo()">点击登录</button>
+			</form> -->
+			<div id = "tab">
+		        <ul>
+			        <li class="off">违法初筛</li>
+			        <li class="on">初筛复核</li>
+		        </ul>
+			    <div id="firstPage" class="hide">
+			            <form>
+							<input type="text" placeholder="请输入用户名" ng-model="name1"> 
+							<input type="password" placeholder="请输入密码" ng-model="pw1"> 
+							<button type="submit" ng-click="denglupd(true)">点击登录</button>
+						</form>
+			    </div>
+			    <div id="secondPage" class="show">
+			            <form>
+							<input type="text" placeholder="请输入用户名" ng-model="name2"> 
+							<input type="password" placeholder="请输入密码" ng-model="pw2"> 
+							<button type="submit" ng-click="denglupd(false)">点击登录</button>
+						</form>
+			    </div>
+			</div>
+			<br />
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+    // JS实现选项卡切换
+    window.onload = function(){
+    var myTab = document.getElementById("tab");    //整个div
+    var myUl = myTab.getElementsByTagName("ul")[0];//一个节点
+    var myLi = myUl.getElementsByTagName("li");    //数组
+    var myDiv = myTab.getElementsByTagName("div"); //数组
+
+    for(var i = 0; i<myLi.length;i++){
+        myLi[i].index = i;
+        myLi[i].onclick = function(){
+            for(var j = 0; j < myLi.length; j++){
+                myLi[j].className="off";
+                myDiv[j].className = "hide";
+            }
+            this.className = "on";
+            myDiv[this.index].className = "show";
+        }
+      }
+    }
+    </script>
+</html>
+
+
+

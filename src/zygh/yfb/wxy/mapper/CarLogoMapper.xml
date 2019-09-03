@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.CarLogoMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findCarLogo" parameterType="zygh.yfb.wxy.vo.CarLogo" resultType="zygh.yfb.wxy.vo.CarLogo">
+	    select * from carlogo
+		<where>
+			<if test="sysId != null and sysId !='' ">
+			and sysId = #{sysId}
+			</if>
+			<if test="cCode != null and cCode !='' ">
+			and cCode = #{cCode}
+			</if>
+			<if test="cExplain != null and cExplain !='' ">
+			and cExplain = #{cExplain}
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addCarLogo" parameterType="zygh.yfb.wxy.vo.CarLogo" >
+  		insert into carlogo(cCode,cExplain) 
+  		values(#{cCode},#{cExplain})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deleteCarLogo" parameterType="int">
+  		delete from carlogo where sysId in
+  		<foreach item="sysIds" collection="array" open="(" separator="," close=")">
+  			#{sysIds}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updateCarLogo" parameterType="zygh.yfb.wxy.vo.CarLogo">
+    	update carlogo
+    	set
+      	cCode = #{cCode},
+      	cExplain = #{cExplain}
+      	where sysId = #{sysId} 
+	</update>
+	
+</mapper>

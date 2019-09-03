@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zygh.yfb.wxy.mapper.PlateTypeMapper" >
+	
+
+	<!-- 查询信息 -->
+   <select id="findPlateType" parameterType="zygh.yfb.wxy.vo.PlateType" resultType="zygh.yfb.wxy.vo.PlateType">
+	    select * from plate_type
+		<where>
+			<if test="sysId != null and sysId !='' ">
+			and sysId = #{sysId}
+			</if>
+			<if test="licensePlateType != null and licensePlateType !='' ">
+			and licensePlateType = #{licensePlateType}
+			</if>
+			<if test="pExplain != null and pExplain !='' ">
+			and pExplain = #{pExplain}
+			</if>
+		</where>
+  	</select> 
+  	
+  	<!-- 添加信息 -->
+ 	<insert id="addPlateType" parameterType="zygh.yfb.wxy.vo.PlateType" >
+  		insert into plate_type(licensePlateType,pExplain) 
+  		values(#{licensePlateType},#{pExplain})
+  	</insert> 
+  	 
+  	 
+  	 
+  	 <!-- 删除信息 -->
+  	<delete id="deletePlateType" parameterType="int">
+  		delete from plate_type where sysId in
+  		<foreach item="sysIds" collection="array" open="(" separator="," close=")">
+  			#{sysIds}
+  		</foreach>
+  	</delete>
+  	
+  	<!-- 修改信息 -->
+  	<update id="updatePlateType" parameterType="zygh.yfb.wxy.vo.PlateType">
+    	update plate_type
+    	set
+      	licensePlateType = #{licensePlateType},
+      	pExplain = #{pExplain}
+      	where sysId = #{sysId} 
+	</update>
+	
+	<select id="selectlicensePlateTypeCount" parameterType="string" resultType="zygh.yfb.wxy.vo.PlateType">
+		select * from plate_type where licensePlateType = #{licensePlateType}
+		<!-- <where>
+			<if test="licensePlateType != null and licensePlateType !='' ">
+			and licensePlateType = #{licensePlateType}
+			</if>
+		</where> -->
+	</select>
+	
+	<select id="selectpExplainCount" parameterType="string" resultType="zygh.yfb.wxy.vo.PlateType">
+		select * from plate_type where pExplain = #{pExplain}
+		<!-- <where>
+			<if test="pExplain != null and pExplain !='' ">
+			and pExplain = #{pExplain}
+			</if>
+		</where> -->
+	</select>
+	
+	
+</mapper>
